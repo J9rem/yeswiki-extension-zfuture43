@@ -3,7 +3,7 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code. #}
 {% if currentuser is not empty %}
-    {{ include_javascript('javascripts/favorites.js') }}
+    {{ include_javascript('tools/zfuture43/javascripts/favorites.js') }}
     <a href="#"
     title="{{ (isUserFavorite) ? _t('FAVORITES_REMOVE') : _t('FAVORITES_ADD') }}"
     data-resource="{{ entryId }}" 
