@@ -12,40 +12,278 @@
 
  $params = $this->wiki->services->get(ParameterBagInterface::class);
 if ($params->get("yeswiki_version") == "doryphore" &&
-    preg_match("/^4\.2\.(?:[2-9]|[1-9][0-9])$/", $params->get("yeswiki_release")) &&
-    isset($data) &&
-    isset($data['action_groups']) &&
-    isset($data['action_groups']['reactions']) &&
-    isset($data['action_groups']['reactions']['actions'])) {
-    $data['action_groups']['reactions']['actions']['myfavorites'] = [
-        'label' => _t('AB_MYFAVORITES_LABEL'),
-        'properties' => [
-            'template' => [
-                'label' => _t('AB_MYFAVORITES_TEMPLATE_LABEL'),
-                'type' => 'list',
-                'default' => 'my-favorites.twig',
-                'options' => [
-                    'my-favorites.twig' => _t('AB_MYFAVORITES_TEMPLATE_LINKS'),
-                    'my-favorites-with-titles.twig' => _t('AB_MYFAVORITES_TEMPLATE_LINKS_WITH_TITLES'),
-                    'my-favorites-tiles.twig' => _t('AB_MYFAVORITES_TEMPLATE_TILES'),
-                    'my-favorites-table.twig' => _t('AB_MYFAVORITES_TEMPLATE_TABLE'),
+    preg_match("/^4\.2\.(?:[2-9]|[1-9][0-9])$/", $params->get("yeswiki_release"))){
+    if(isset($data) &&
+        isset($data['action_groups']) &&
+        isset($data['action_groups']['reactions']) &&
+        isset($data['action_groups']['reactions']['actions'])) {
+        $data['action_groups']['reactions']['actions']['myfavorites'] = [
+            'label' => _t('AB_MYFAVORITES_LABEL'),
+            'properties' => [
+                'template' => [
+                    'label' => _t('AB_MYFAVORITES_TEMPLATE_LABEL'),
+                    'type' => 'list',
+                    'default' => 'my-favorites.twig',
+                    'options' => [
+                        'my-favorites.twig' => _t('AB_MYFAVORITES_TEMPLATE_LINKS'),
+                        'my-favorites-with-titles.twig' => _t('AB_MYFAVORITES_TEMPLATE_LINKS_WITH_TITLES'),
+                        'my-favorites-tiles.twig' => _t('AB_MYFAVORITES_TEMPLATE_TILES'),
+                        'my-favorites-table.twig' => _t('AB_MYFAVORITES_TEMPLATE_TABLE'),
+                    ]
                 ]
             ]
-        ]
-    ];
-}
+        ];
+    }
+    if (isset($data) &&
+        isset($data['action_groups']) &&
+        isset($data['action_groups']['bazarliste']) &&
+        isset($data['action_groups']['bazarliste']['actions'])){
+      if(isset($data['action_groups']['bazarliste']['actions']['commons']) &&
+        isset($data['action_groups']['bazarliste']['actions']['commons']['properties'])){
+        if (isset($data['action_groups']['bazarliste']['actions']['commons']['properties']['colorfield'])){
+            $data['action_groups']['bazarliste']['actions']['commons']['properties']['colorfield']['extraFields'] = "id_typeannonce";
+        }        
+        if (isset($data['action_groups']['bazarliste']['actions']['commons']['properties']['colormapping']) &&
+            isset($data['action_groups']['bazarliste']['actions']['commons']['properties']['colormapping']['subproperties']) && 
+            isset($data['action_groups']['bazarliste']['actions']['commons']['properties']['colormapping']['subproperties']['id'])){
+            $data['action_groups']['bazarliste']['actions']['commons']['properties']['colormapping']['subproperties']['id']['extraFields'] = "id_typeannonce";
+        }        
+        if (isset($data['action_groups']['bazarliste']['actions']['commons']['properties']['iconfield'])){
+            $data['action_groups']['bazarliste']['actions']['commons']['properties']['iconfield']['extraFields'] = "id_typeannonce";
+        }        
+        if (isset($data['action_groups']['bazarliste']['actions']['commons']['properties']['iconmapping']) &&
+            isset($data['action_groups']['bazarliste']['actions']['commons']['properties']['iconmapping']['subproperties']) && 
+            isset($data['action_groups']['bazarliste']['actions']['commons']['properties']['iconmapping']['subproperties']['id'])){
+            $data['action_groups']['bazarliste']['actions']['commons']['properties']['iconmapping']['subproperties']['id']['extraFields'] = "id_typeannonce";
+        }
+      }
+      if(isset($data['action_groups']['bazarliste']['actions']['commons2']) &&
+        isset($data['action_groups']['bazarliste']['actions']['commons2']['properties'])){        
+        if (isset($data['action_groups']['bazarliste']['actions']['commons2']['properties']['facettes']) &&
+            isset($data['action_groups']['bazarliste']['actions']['commons2']['properties']['facettes']['subproperties']) && 
+            isset($data['action_groups']['bazarliste']['actions']['commons2']['properties']['facettes']['subproperties']['field'])){
+            $data['action_groups']['bazarliste']['actions']['commons2']['properties']['facettes']['subproperties']['field']['extraFields'] = "id_typeannonce";
+        }
+        if (isset($data['action_groups']['bazarliste']['actions']['commons2']['properties']['champ'])){
+            $data['action_groups']['bazarliste']['actions']['commons2']['properties']['champ']['extraFields'] = 
+            [
+              "id_typeannonce",
+              "date_creation_fiche",
+              "date_maj_fiche"
+            ];
+        }
+      }
+      if(isset($data['action_groups']['bazarliste']['actions']['bazarliste']) &&
+        isset($data['action_groups']['bazarliste']['actions']['bazarliste']['properties'])){ 
+        if (isset($data['action_groups']['bazarliste']['actions']['bazarliste']['properties']['displayfields']) &&
+            isset($data['action_groups']['bazarliste']['actions']['bazarliste']['properties']['displayfields']['subproperties'])){
+          if (isset($data['action_groups']['bazarliste']['actions']['bazarliste']['properties']['displayfields']['subproperties']['subtitle'])){
+            $data['action_groups']['bazarliste']['actions']['bazarliste']['properties']['displayfields']['subproperties']['subtitle']['extraFields'] = [
+              "owner",
+              "date_creation_fiche",
+              "date_maj_fiche"
+            ];
+          }
+          if (isset($data['action_groups']['bazarliste']['actions']['bazarliste']['properties']['displayfields']['subproperties']['visual'])){
+            $data['action_groups']['bazarliste']['actions']['bazarliste']['properties']['displayfields']['subproperties']['visual']['extraFields'] = [
+              "owner",
+              "date_creation_fiche",
+              "date_maj_fiche"
+            ];
+          }
+          if (isset($data['action_groups']['bazarliste']['actions']['bazarliste']['properties']['displayfields']['subproperties']['floating'])){
+            $data['action_groups']['bazarliste']['actions']['bazarliste']['properties']['displayfields']['subproperties']['floating']['extraFields'] = [
+              "owner",
+              "date_creation_fiche",
+              "date_maj_fiche"
+            ];
+          }
+        } 
+      }
+      if(isset($data['action_groups']['bazarliste']['actions']['bazarcard']) &&
+        isset($data['action_groups']['bazarliste']['actions']['bazarcard']['properties'])){ 
+        if (isset($data['action_groups']['bazarliste']['actions']['bazarcard']['properties']['displayfields']) &&
+            isset($data['action_groups']['bazarliste']['actions']['bazarcard']['properties']['displayfields']['subproperties'])){
+          if (isset($data['action_groups']['bazarliste']['actions']['bazarcard']['properties']['displayfields']['subproperties']['subtitle'])){
+            $data['action_groups']['bazarliste']['actions']['bazarcard']['properties']['displayfields']['subproperties']['subtitle']['extraFields'] = [
+              "owner"
+            ];
+          }
+          if (isset($data['action_groups']['bazarliste']['actions']['bazarcard']['properties']['displayfields']['subproperties']['footer'])){
+            $data['action_groups']['bazarliste']['actions']['bazarcard']['properties']['displayfields']['subproperties']['footer']['extraFields'] = [
+              "owner"
+            ];
+          }
+          if (isset($data['action_groups']['bazarliste']['actions']['bazarcard']['properties']['displayfields']['subproperties']['floating'])){
+            $data['action_groups']['bazarliste']['actions']['bazarcard']['properties']['displayfields']['subproperties']['floating']['extraFields'] = [
+              "owner"
+            ];
+          }
+        }
+      }
+      if(isset($data['action_groups']['bazarliste']['actions']['bazaragenda']) &&
+        isset($data['action_groups']['bazarliste']['actions']['bazaragenda']['properties'])){ 
+        if (isset($data['action_groups']['bazarliste']['actions']['bazaragenda']['properties']['correspondance']) &&
+            isset($data['action_groups']['bazarliste']['actions']['bazaragenda']['properties']['correspondance']['subproperties'])){
+          if (isset($data['action_groups']['bazarliste']['actions']['bazaragenda']['properties']['correspondance']['subproperties']['bf_date_debut_evenement'])){
+            $data['action_groups']['bazarliste']['actions']['bazaragenda']['properties']['correspondance']['subproperties']['bf_date_debut_evenement']['extraFields'] = [
+              "date_creation_fiche",
+              "date_maj_fiche"
+            ];
+          }
+          if (isset($data['action_groups']['bazarliste']['actions']['bazaragenda']['properties']['correspondance']['subproperties']['bf_date_fin_evenement'])){
+            $data['action_groups']['bazarliste']['actions']['bazaragenda']['properties']['correspondance']['subproperties']['bf_date_fin_evenement']['extraFields'] = [
+              "date_creation_fiche",
+              "date_maj_fiche"
+            ];
+          }
+        }
+      }
+      if(isset($data['action_groups']['bazarliste']['actions']['bazartimeline']) &&
+        isset($data['action_groups']['bazarliste']['actions']['bazartimeline']['properties'])){ 
+        if (isset($data['action_groups']['bazarliste']['actions']['bazartimeline']['properties']['correspondance']) &&
+            isset($data['action_groups']['bazarliste']['actions']['bazartimeline']['properties']['correspondance']['subproperties'])){
+          if (isset($data['action_groups']['bazarliste']['actions']['bazartimeline']['properties']['correspondance']['subproperties']['bf_date_debut_evenement'])){
+            $data['action_groups']['bazarliste']['actions']['bazartimeline']['properties']['correspondance']['subproperties']['bf_date_debut_evenement']['extraFields'] = [
+              "date_creation_fiche",
+              "date_maj_fiche"
+            ];
+          }
+        }
+      }
+      if(isset($data['action_groups']['bazarliste']['actions']['bazarcarousel']) &&
+        isset($data['action_groups']['bazarliste']['actions']['bazarcarousel']['properties'])){ 
+        if (isset($data['action_groups']['bazarliste']['actions']['bazarcarousel']['properties']['correspondance']) &&
+            isset($data['action_groups']['bazarliste']['actions']['bazarcarousel']['properties']['correspondance']['subproperties'])){
+          if (isset($data['action_groups']['bazarliste']['actions']['bazarcarousel']['properties']['correspondance']['subproperties']['bf_titre'])){
+            $data['action_groups']['bazarliste']['actions']['bazarcarousel']['properties']['correspondance']['subproperties']['bf_titre']['extraFields'] = [
+              "owner",
+            ];
+          }
+        }
+      }
+      if(isset($data['action_groups']['bazarliste']['actions']['bazarblog']) &&
+        isset($data['action_groups']['bazarliste']['actions']['bazarblog']['properties'])){ 
+        if (isset($data['action_groups']['bazarliste']['actions']['bazarblog']['properties']['correspondance']) &&
+            isset($data['action_groups']['bazarliste']['actions']['bazarblog']['properties']['correspondance']['subproperties'])){
+          if (isset($data['action_groups']['bazarliste']['actions']['bazarblog']['properties']['correspondance']['subproperties']['date_creation_fiche'])){
+            $data['action_groups']['bazarliste']['actions']['bazarblog']['properties']['correspondance']['subproperties']['date_creation_fiche']['extraFields'] = [
+              "date_creation_fiche",
+              "date_maj_fiche"
+            ];
+          }
+        }
+      }
+    }
+?>
+<div class="modal" id="actions-builder-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content" id="actions-builder-app">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title">{{ actionGroup.label }}</h2>
+        </div>
 
-$paths = $this->twigLoader->getPaths("aceditor");
-$curExtDirName = basename(dirname(dirname(dirname(__FILE__))));
-$curDir = "tools/$curExtDirName/templates/aceditor";
+        <!-- Modal Body -->
+        <div class="modal-body">
+        <!-- Choose form (only for bazar actions) -->
+        <div v-if="needFormField" class="form-group">
+            <label class="control-label"><?php echo _t('ACTION_BUILDER_CHOOSE_FORM'); ?></label>
+            <select :value="getSelectedFormId()" required class="form-control" @change="setSelectedFormId" ref="formSelection">
+            <option v-for="(name, id) in formIds" :value="id">{{ name }}</option>
+            </select>
+            <span v-if="isBazarListeAction" class="text-muted"><?php echo  _t('ACTION_BUILDER_SEVERAL_FORMS_HINT'); ?></span>
+        </div>
 
-// render next following custom actions-builder.tpl.html
-$curPos = array_search($curDir, $paths);
-if ($curPos !== false) {
-    for ($i=($curPos+1); $i < count($paths); $i++) {
-        if ($paths[$i] != $curDir && $this->hasTemplate("{$paths[$i]}/actions-builder.tpl.html")) {
-            echo $this->render("{$paths[$i]}/actions-builder.tpl.html", compact(['data']));
-            break;
+        <!-- Choose Action -->
+        <div class="form-group" v-show="Object.keys(this.actions).length > 1">
+            <label class="control-label">{{ isBazarListeAction ? '<?php echo _t('ACTION_BUILDER_CHOOSE_TEMPLATE'); ?>' : '<?php echo _t('ACTION_BUILDER_CHOOSE_ACTION'); ?>' }}</label>
+            <select v-model="selectedActionId" required class="form-control">
+            <option v-for="(action, actionId) in actions" v-if="action.label" :value="actionId">{{ action.label }}</option>
+            </select>
+        </div>
+
+        <!-- Action Configuration -->
+        <div v-if="selectedAction && (!needFormField || selectedForms)" class="action-parameters-container">
+
+            <div v-if="selectedAction.hint" class="alert alert-info">{{ selectedAction.hint }}</div>
+
+            <!-- Iframe Preview -->
+            <preview-action :wiki-code="wikiCodeForIframe" :height="actionGroup.previewHeight"></preview-action>
+
+            <div class="panels-config-container">
+            <div v-for="panel in configPanels" class="config-panel" :class="panel.params.class" 
+                    :style="{width: panel.params.width || (configPanels.length == 1 ? '50%' : '33%')}" v-show="checkVisibility(panel.params)">
+                <h3>{{ panel.params.title ? panel.params.title : '<?php echo _t('ACTION_BUILDER_PARAMETERS') ?>'}}</h3>
+                <div class="config-panel-content">
+                <template v-for="(config, propName) in panel.params.properties">
+                    <component :is="componentIdFrom(config)" :key="propName" :ref="refFrom(config)"
+                                :value="values[propName]" v-on:input="updateValue(propName, $event)"
+                                v-show="checkVisibility(config)"
+                                :name="propName" :values="values"
+                                :config="config" :selected-forms="selectedForms">
+                    </component>
+                </template>
+                </div>
+            </div>
+            </div>
+
+            <!-- Advanced Params Checkbox -->
+            <input-checkbox v-if="isSomeAdvancedParams" v-model="displayAdvancedParams" 
+                            :config="{label: '<?php echo _t('ACTION_BUILDER_ADVANCED_PARAMETERS') ?>'}" 
+                            class="advanced-params">
+            </input-checkbox>
+
+            <div class="col-md-12 result-container">
+            <h3><?php echo _t('ACTION_BUILDER_WIKI_CODE_TITLE') ?></h3>
+            <wiki-code-input :action-params="actionParams" :is-editing="isEditingExistingAction"
+                                :editor="editor" :wiki-code="wikiCode"></wiki-code-input>
+            </div>
+        </div>
+        </div>
+
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Close</button>
+        </div>
+
+    </div>
+    </div>
+</div>
+
+<script>
+    // Not very elegant, but avoid doing an ajax request from vue component to retrieve the Json data
+    var actionsBuilderData = <?php echo json_encode($data) ?>;
+</script>
+
+<?php
+    $this->wiki->addCSSFile('tools/templates/libs/vendor/font-picker/fontawesome-picker.min.css');
+    $this->wiki->AddJavascriptFile('tools/templates/libs/vendor/font-picker/fontawesome-picker.min.js');
+
+    $this->wiki->AddJavascriptFile('javascripts/vendor/spectrum-colorpicker2/spectrum.min.js');
+    $this->wiki->AddCSSFile('styles/vendor/spectrum-colorpicker2/spectrum.min.css');
+
+    $this->wiki->AddCSSFile('styles/vendor/leaflet/leaflet.css');
+    $this->wiki->AddJavascriptFile('javascripts/vendor/leaflet/leaflet.min.js');
+
+    $this->wiki->AddJavascriptFile('javascripts/vendor/vue/vue.js');
+    $this->wiki->AddJavascriptFile('javascripts/vendor/vue-select/vue-select.min.js');
+    $this->wiki->AddCSSFile('styles/vendor/vue-select/vue-select.css');
+
+    $this->wiki->AddJavascriptFile('tools/zfuture43/javascripts/actions-builder.js', false, true);
+    $this->wiki->addCSSFile('tools/aceditor/presentation/styles/actions-builder.css');
+} else {
+    $paths = $this->twigLoader->getPaths("aceditor");
+    $curExtDirName = basename(dirname(dirname(dirname(__FILE__))));
+    $curDir = "tools/$curExtDirName/templates/aceditor";
+
+    // render next following custom actions-builder.tpl.html
+    $curPos = array_search($curDir,$paths);
+    if ($curPos !== false) {
+        for ($i=($curPos+1); $i < count($paths); $i++) { 
+            if ($paths[$i] != $curDir && $this->hasTemplate("{$paths[$i]}/actions-builder.tpl.html")){
+                echo $this->render("{$paths[$i]}/actions-builder.tpl.html",compact(['data']));
+                break;
+            }
         }
     }
 }

@@ -5,7 +5,7 @@
 
 ## English
 
-Extension [YesWiki](https://yeswiki.net/) to activates favorites for doryphore >=4.2.2 < 4.3>
+Extension [YesWiki](https://yeswiki.net/) to activate favorites and improve actions builder for doryphore >=4.2.2 < 4.3>
 
 ### Authors
 
@@ -23,7 +23,7 @@ Developpers of this extension can not be responsible of consequences of the usag
 
 ## Français
 
-Extension [YesWiki](https://yeswiki.net/) pour activer les favoris sur les versions >=4.2.2 <4.3
+Extension [YesWiki](https://yeswiki.net/) pour activer les favoris et améliorer de l'actions builder sur les versions >=4.2.2 <4.3
 
 ### Auteurs
 

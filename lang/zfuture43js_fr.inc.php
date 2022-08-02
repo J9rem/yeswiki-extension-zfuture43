@@ -17,4 +17,8 @@ return [
     'FAVORITES_ADDED' => 'Favori ajouté',
     'FAVORITES_REMOVED' => 'Favori supprimé',
 
+    'ACTION_BUILDER_OWNER'               => 'Propriétaire de la fiche',
+    'ACTION_BUILDER_MODIFICATION_DATE'   => 'Date de modification',
+    'ACTION_BUILDER_CREATION_DATE'       => 'Date de création',
+    'ACTION_BUILDER_FORM_ID'             => 'Formulaire'
 ];
