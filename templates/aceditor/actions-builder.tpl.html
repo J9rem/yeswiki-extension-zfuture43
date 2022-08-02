@@ -34,6 +34,83 @@ if ($params->get("yeswiki_version") == "doryphore" &&
             ]
         ];
     }
+
+
+    
+    if (isset($data) &&
+    isset($data['action_groups']) &&
+    isset($data['action_groups']['bazarliste']) &&
+    isset($data['action_groups']['bazarliste']['actions']) &&
+    isset($data['action_groups']['bazarliste']['actions']['bazarcarto']) &&
+    isset($data['action_groups']['bazarliste']['actions']['bazarcarto']['properties'])){
+        if (isset($data['action_groups']['bazarliste']['actions']['bazarcarto']['properties']['entrydisplay']) && 
+            isset($data['action_groups']['bazarliste']['actions']['bazarcarto']['properties']['entrydisplay']['options']) && 
+            !isset($data['action_groups']['bazarliste']['actions']['bazarcarto']['properties']['entrydisplay']['options']['popup'])){
+            $data['action_groups']['bazarliste']['actions']['bazarcarto']['properties']['entrydisplay']['options']['popup'] = _t('AB_bazarcarto_entrydisplay_option_popup');
+        }
+        if (!isset($data['action_groups']['bazarliste']['actions']['bazarcarto']['properties']['popuptemplate'])){
+            $data['action_groups']['bazarliste']['actions']['bazarcarto']['properties']['popuptemplate'] = 
+            [
+                'label' => _t('AB_bazarcarto_popuptemplate_label'),
+                'type' => 'list',
+                'value' => '_map_popup_html.twig',
+                'advanced' => true,
+                'options' => [
+                '_map_popup_html.twig' => _t('AB_bazarcarto_popuptemplate_entry_from_html'),
+                '_map_popup_from_data.twig' => _t('AB_bazarcarto_popuptemplate_entry_from_data'),
+                'custom' => _t('AB_bazarcarto_popuptemplate_custom')],
+                'showif' => [
+                'dynamic' => true,
+                'entrydisplay' => 'popup'
+                ]
+            ];
+        }
+        if (!isset($data['action_groups']['bazarliste']['actions']['bazarcarto']['properties']['popupcustomtemplate'])){
+            $data['action_groups']['bazarliste']['actions']['bazarcarto']['properties']['popupcustomtemplate'] = 
+            [
+                'label' => _t('AB_bazarcarto_popupcustomtemplate_label'),
+                'type' => 'text',
+                'value' => 'custom_map_popup.twig',
+                'hint' => _t('AB_bazarcarto_popupcustomtemplate_hint'),
+                'advanced' => true,
+                'showif' => [
+                'dynamic' => true,
+                'entrydisplay' => 'popup',
+                'popuptemplate' => 'custom',
+                ]
+            ];
+        }
+        if (!isset($data['action_groups']['bazarliste']['actions']['bazarcarto']['properties']['popupselectedfields'])){
+            $data['action_groups']['bazarliste']['actions']['bazarcarto']['properties']['popupselectedfields'] = 
+            [
+                'label' => _t('AB_bazarliste_popupselectedfields_label'),
+                'type' => 'form-field',
+                'default' => '',
+                'multiple' => true,
+                'advanced' => true,
+                'showif' => [
+                'dynamic' => true,
+                'entrydisplay' => 'popup',
+                'popuptemplate' => '_map_popup_html.twig|custom'
+                ]
+            ];
+        }
+        if (!isset($data['action_groups']['bazarliste']['actions']['bazarcarto']['properties']['necessary_fields'])){
+            $data['action_groups']['bazarliste']['actions']['bazarcarto']['properties']['necessary_fields'] = 
+            [
+                'label' => _t('AB_bazarliste_popupneededfields_label'),
+                'type' => 'form-field',
+                'value' => "bf_titre,imagebf_image",
+                'multiple' => true,
+                'advanced' => true,
+                'showif' => [
+                'dynamic' => true,
+                'entrydisplay' => 'popup',
+                'popuptemplate' => '_map_popup_from_data.twig|custom'
+                ]
+            ];
+        }
+    }
     if (isset($data) &&
         isset($data['action_groups']) &&
         isset($data['action_groups']['bazarliste']) &&
