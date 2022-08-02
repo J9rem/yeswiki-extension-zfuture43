@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<plugin name="zfuture43" version="0.1" active="1">
+  <author>Jeremy Dufraisse (J9rem)</author>
+  <label>Future 43 (favorites,map popup,actions builder)</label>
+  <desc>Activation des futures fonctionnalites pour doryphore 4 3 (favorites,map popup,actions builder)</desc>
+</plugin>

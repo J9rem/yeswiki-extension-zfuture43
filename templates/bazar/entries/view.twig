@@ -1,0 +1,21 @@
+{# # This file is part of the YesWiki Extension zfuture43.
+# Authors : see README.md file that was distributed with this source code.
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code. #}
+
+{% if hasAcl('+') and config.yeswiki_version == "doryphore" %}
+    {% set release = config.yeswiki_release|split('.') %}
+    {% if release[0] == 4 and release[1] == 2 and release[2] >= 2 and url({tag:''})|slice(-7) == '/iframe' %}
+        {{ include_javascript('tools/zfuture43/javascripts/favorites.js') }}
+        {{ include('tools/bazar/templates/entries/view.twig')|replace({
+            '<div class="BAZ_actions_fiche">': "<div class=\"BAZ_actions_fiche\">" ~
+            format("{{myfavorites entryid=\"#{entryId}\" isuserfavorite=\"true\"}}")|raw
+        })|raw }}
+    {% else %}
+      {% block display %}
+        {{ include('tools/bazar/templates/entries/view.twig') }}
+      {% endblock %}
+  {% endif %}
+{% else %}
+  {{ block('display') }}
+{% endif %}

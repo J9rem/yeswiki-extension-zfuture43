@@ -1,0 +1,51 @@
+<?php
+
+/*
+ * This file is part of the YesWiki Extension zfuture43.
+ *
+ * Authors : see README.md file that was distributed with this source code.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+
+ $params = $this->wiki->services->get(ParameterBagInterface::class);
+if ($params->get("yeswiki_version") == "doryphore" &&
+    preg_match("/^4\.2\.(?:[2-9]|[1-9][0-9])$/", $params->get("yeswiki_release")) &&
+    isset($data) &&
+    isset($data['action_groups']) &&
+    isset($data['action_groups']['reactions']) &&
+    isset($data['action_groups']['reactions']['actions'])) {
+    $data['action_groups']['reactions']['actions']['myfavorites'] = [
+        'label' => _t('AB_MYFAVORITES_LABEL'),
+        'properties' => [
+            'template' => [
+                'label' => _t('AB_MYFAVORITES_TEMPLATE_LABEL'),
+                'type' => 'list',
+                'default' => 'my-favorites.twig',
+                'options' => [
+                    'my-favorites.twig' => _t('AB_MYFAVORITES_TEMPLATE_LINKS'),
+                    'my-favorites-with-titles.twig' => _t('AB_MYFAVORITES_TEMPLATE_LINKS_WITH_TITLES'),
+                    'my-favorites-tiles.twig' => _t('AB_MYFAVORITES_TEMPLATE_TILES'),
+                    'my-favorites-table.twig' => _t('AB_MYFAVORITES_TEMPLATE_TABLE'),
+                ]
+            ]
+        ]
+    ];
+}
+
+$paths = $this->twigLoader->getPaths("aceditor");
+$curExtDirName = basename(dirname(dirname(dirname(__FILE__))));
+$curDir = "tools/$curExtDirName/templates/aceditor";
+
+// render next following custom actions-builder.tpl.html
+$curPos = array_search($curDir, $paths);
+if ($curPos !== false) {
+    for ($i=($curPos+1); $i < count($paths); $i++) {
+        if ($paths[$i] != $curDir && $this->hasTemplate("{$paths[$i]}/actions-builder.tpl.html")) {
+            echo $this->render("{$paths[$i]}/actions-builder.tpl.html", compact(['data']));
+            break;
+        }
+    }
+}

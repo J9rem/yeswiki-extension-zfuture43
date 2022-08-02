@@ -1,0 +1,75 @@
+<?php
+/*
+ * This file is part of the YesWiki Extension zfuture43.
+ *
+ * Authors : see README.md file that was distributed with this source code.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+// backward compatibility TODO delete this file for ectoplasme
+
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+
+$params = compact([
+    "page",
+    "linkpage",
+    "class"
+]);
+if (isset($linkedit)){
+    $params['linkedit'] = $linkedit;
+}
+if (isset($linkrevisions)){
+    $params['linkrevisions'] = $linkrevisions;
+}
+if (isset($time)){
+    $params['time'] = $time;
+}
+if (isset($owner)){
+    $params['owner'] = $owner;
+}
+if (isset($linkacls)){
+    $params['linkacls'] = $linkacls;
+}
+if (isset($linkdeletepage)){
+    $params['linkdeletepage'] = $linkdeletepage;
+}
+if (isset($wikigroups)){
+    $params['wikigroups'] = $wikigroups;
+}
+if (isset($linkclosecomments)){
+    $params['linkclosecomments'] = $linkclosecomments;
+}
+if (isset($linkopencomments)){
+    $params['linkopencomments'] = $linkopencomments;
+}
+if (isset($linkshare)){
+    $params['linkshare'] = $linkshare;
+}
+if (isset($currentuser)){
+    $params['currentuser'] = $currentuser;
+}
+if (isset($isUserFavorite)){
+    $params['isUserFavorite'] = $isUserFavorite;
+}
+
+$ywparams = $this->wiki->services->get(ParameterBagInterface::class);
+if ($ywparams->get("yeswiki_version") == "doryphore" &&
+   preg_match("/^4\.2\.(?:[2-9]|[1-9][0-9])$/", $ywparams->get("yeswiki_release"))){
+    echo $this->render("@templates/barreredaction_basic.twig",$params);
+} else {
+    $paths = $this->twigLoader->getPaths("templates");
+    $curExtDirName = basename(dirname(dirname(dirname(__FILE__))));
+    $curDir = "tools/$curExtDirName/templates/templates";
+    
+    // render next following custom barreredaction_basic.tpl.html
+    $curPos = array_search($curDir, $paths);
+    if ($curPos !== false) {
+        for ($i=($curPos+1); $i < count($paths); $i++) {
+            if ($paths[$i] != $curDir && $this->hasTemplate("{$paths[$i]}/barreredaction_basic.tpl.html")) {
+                echo $this->render("{$paths[$i]}/barreredaction_basic.tpl.html", $params);
+                break;
+            }
+        }
+    }
+}
