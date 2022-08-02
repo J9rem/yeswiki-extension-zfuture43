@@ -60,6 +60,8 @@ class MyFavoritesAction extends YesWikiAction
                     "isUserFavorite" => $isUserFavorite ?? false,
                     "entryId" => $this->arguments['entryid'],
                 ]);
+            } elseif (!$this->favoritesManager->areFavoritesActivated()) {
+                return '';
             }
         }
 
