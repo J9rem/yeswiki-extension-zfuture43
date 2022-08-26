@@ -8,6 +8,7 @@
  */
 
 import LeafletMarkerCluster from '../../../bazar/presentation/javascripts/components/LeafletMarkerCluster.js'
+import SpinnerLoader from '../../../bazar/presentation/javascripts/components/SpinnerLoader.js'
 
 // allow usage of wiki in templates
 Vue.prototype.wiki = wiki;
@@ -19,7 +20,8 @@ Vue.component('BazarMap', {
     'l-tile-layer': window.Vue2Leaflet.LTileLayer,
     'l-marker': window.Vue2Leaflet.LMarker,
     'l-icon': window.Vue2Leaflet.LIcon,
-    'l-marker-cluster': LeafletMarkerCluster
+    'l-marker-cluster': LeafletMarkerCluster,
+    SpinnerLoader
   },
   data() {
     return {
@@ -297,8 +299,8 @@ Vue.component('BazarMap', {
              @click="selectedEntry = null">
         <l-marker-cluster ref="cluster" ></l-marker-cluster>
       </l-map>
+      <spinner-loader class="overlay" v-if="!$root.ready || $root.isLoading" style="z-index:1000;"></spinner-loader>
       
-
       <!-- SideNav to display entry -->
       <div v-if="selectedEntry && this.params.entrydisplay == 'sidebar'" class="entry-container">
         <div class="btn-close" @click="selectedEntry = null"><i class="fa fa-times"></i></div>
