@@ -1,0 +1,3 @@
+vendor/
+!javascripts/vendor/
+!styles/vendor/

@@ -1,0 +1,13 @@
+{
+    "config": {
+        "optimize-autoloader": true,
+        "platform": {
+            "php": "7.3.0"
+        },
+        "platform-check": true,
+        "sort-packages": true
+    },
+    "require": {
+        "symfony/security-core": "^5.4"
+    }
+}

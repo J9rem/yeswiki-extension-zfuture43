@@ -21,3 +21,12 @@ services:
 
   YesWiki\Zfuture43\Service\FormManager:
     decorates: YesWiki\Bazar\Service\FormManager
+
+  YesWiki\Zfuture43\Service\UserManager:
+    decorates: YesWiki\Core\Service\UserManager
+
+  YesWiki\Zfuture43\Service\HtmlPurifierService:
+    decorates: YesWiki\Core\Service\HtmlPurifierService
+
+  YesWiki\Zfuture43\Service\AclService:
+    decorates: YesWiki\Core\Service\AclService

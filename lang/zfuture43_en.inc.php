@@ -33,4 +33,27 @@ return [
     'FAVORITES_LINK' => 'Link',
     
     'EDIT_CONFIG_HINT_FAVORITES_ACTIVATED' => 'Enable favorites (true or false)',
+
+    'USER_ERRORS_FOUND' => 'Found(s) errors(s)',
+    'USER_YOU_MUST_SPECIFY_A_POSITIVE_INTEGER_FOR' => 'A positive integer is needed for %{name}.',
+    'USER_YOU_MUST_SPECIFY_YES_OR_NO' => '\'Y\' or \'N\' is required for %{name}.',
+    'USER_YOU_MUST_SPECIFY_A_STRING' => 'A string is required for %{name}.',
+
+    'EDIT_CONFIG_HINT_TIMEZONE' => 'Time zone of the site (e.g. UCT, Europe/Paris, Europe/London, GMT = use the server time zone,)',
+    'EDIT_CONFIG_HINT_ALLOWED_METHODS_IN_IFRAME' => 'Methods allowed to be displayed in iframes (iframe,editiframe,bazariframe,render,all = allow all)',
+    'EDIT_CONFIG_HINT_REVISIONSCOUNT' => 'Maximum number of page\'s revisions displayed by the handler `/revisions`.',
+    'EDIT_CONFIG_HINT_HTMLPURIFIERACTIVATED' => 'Enable HTML purifier before backup. Be careful, modify the content to backup! (true or false)',
+    'EDIT_CONFIG_HINT_FAVORITES_ACTIVATED' => 'Enable favorites (true or false)',
+    
+    'USERSTABLE_CREATE_USER' => 'Create a user',
+    'USERSTABLE_CREATE_USER_HINT' => 'Password randomly generated',
+
+    
+    'USERSETTINGS_CAPTCHA_USER_CREATION' => 'Verification to create a user',
+    'USERSETTINGS_SIGNUP_MISSING_INPUT' => 'The \'{parameters}\' parameters cannot be empty!',
+    'USERSETTINGS_NAME_ALREADY_USED' => 'The identifier "{currentName}" already exists!',
+    'USERSETTINGS_EMAIL_ALREADY_USED' => 'The email "{email}" is already used by another account!',
+    'USERSETTINGS_CHANGE_PWD_IN_IFRAME' => "You are about to change your password in an iframe window.\n".
+        "To avoid keylogging attacks, make sure the site url starts with {baseUrl}.\n".
+        "If in doubt, open this form in a dedicated page by clicking on this link {link}.",
 ];

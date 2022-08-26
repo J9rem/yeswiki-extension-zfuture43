@@ -20,5 +20,15 @@ return [
     'ACTION_BUILDER_OWNER'               => 'Propriétaire de la fiche',
     'ACTION_BUILDER_MODIFICATION_DATE'   => 'Date de modification',
     'ACTION_BUILDER_CREATION_DATE'       => 'Date de création',
-    'ACTION_BUILDER_FORM_ID'             => 'Formulaire'
+    'ACTION_BUILDER_FORM_ID'             => 'Formulaire',
+
+    // javascripts/documentation.js
+    "DOCUMENTATION_TITLE" => "Documentation YesWiki",
+
+    // javascripts/users-table.js
+    "USERSTABLE_USER_CREATED" => "Utilisateur '{name}' créé",
+    "USERSTABLE_USER_NOT_CREATED" => "Utilisateur '{name}' non créé : {error}",
+    'USERSTABLE_USER_DELETED' => 'L\'utilisateur "{username}" a été supprimé.',
+    'USERSTABLE_USER_NOT_DELETED' => 'L\'utilisateur "{username}" n\'a pas été supprimé.',
+    
 ];

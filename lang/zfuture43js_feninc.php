@@ -16,4 +16,15 @@ return [
     'FAVORITES_REMOVE' => 'Remove from favorites',
     'FAVORITES_ADDED' => 'Favorite added',
     'FAVORITES_REMOVED' => 'Favorite deleted',
+
+    // javascripts/documentation.js
+    "DOCUMENTATION_TITLE" => "YesWiki documentation",
+
+    // javascripts/users-table.js
+    "USERSTABLE_USER_CREATED" => "User '{name}' created",
+    "USERSTABLE_USER_NOT_CREATED" => "User '{name}' not created : {error}",
+    'USERSTABLE_USER_DELETED' => 'The user "{username}" is deleted.',
+    'USERSTABLE_USER_NOT_DELETED' => 'The user "{username}" is not deleted.',
+    
+     
 ];

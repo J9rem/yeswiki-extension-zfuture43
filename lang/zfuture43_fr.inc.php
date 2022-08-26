@@ -46,4 +46,46 @@ return [
     "AB_bazarliste_popupneededfields_label" => "Champs à ajouter dans la popup",
     "AB_bazarcarto_popupcustomtemplate_label" => "Template personnalisé pour la petite popup",
     "AB_bazarcarto_popupcustomtemplate_hint" => "ex. 'custom_map_popup.twig' à placer dans 'custom/templates/bazar/entries/index-dynamic-templates/'",
+
+    
+    'USER_YOU_MUST_SPECIFY_A_POSITIVE_INTEGER_FOR' => 'Il faut une valeur entier positif pour %{name}.',
+    'USER_YOU_MUST_SPECIFY_YES_OR_NO' => 'Il faut une value \'Y\' ou  \'N\' pour %{name}.',
+    'USER_YOU_MUST_SPECIFY_A_STRING' => 'Il faut une chaîne de caractères pour %{name}.',
+
+    'USERSTABLE_CREATE_USER' => 'Créer un utilisateur',
+    'USERSTABLE_CREATE_USER_HINT' => 'Mot de passe généré aléatoirement',
+    
+    'TEMPLATE_NO_OWNER' => 'Pas de propriétaire',
+    
+    'USERSETTINGS_CAPTCHA_USER_CREATION' => 'Vérification pour créer un utilisateur',
+    'USERSETTINGS_SIGNUP_MISSING_INPUT' => 'Les paramètres \'{parameters}\' ne peuvent être vides !',
+    'USERSETTINGS_NAME_ALREADY_USED' => 'L\'identifiant "{currentName}" existe déjà !',
+    'USERSETTINGS_EMAIL_ALREADY_USED' => 'L\'email "{email}" est déjà utilisé par un autre compte !',
+    'USERSETTINGS_CHANGE_PWD_IN_IFRAME' => "Vous vous apprêtez à changer votre mot de passe dans une fenêtre de type iframe.\n".
+        "Pour éviter les attaques par enregistrement de vos touches, assurez-vous que l'url du site commence bien par {baseUrl}.\n".
+        "Au moindre doute, ouvrez ce formulaire dans une page dédiée en cliquant sur ce lien {link}.",
+
+    
+    "AB_advanced_action_login_label" => "Connexion",
+    "AB_advanced_action_login_signupurl_label" => "Url d'inscription",
+    "AB_advanced_action_login_signupurl_hint" => "Page du wiki ou url ou '0' pour masquer le bouton d'inscription",
+    "AB_advanced_action_login_profileurl_label" => "Url du profil",
+    "AB_advanced_action_login_profileurl_hint" => "Page du wiki ou url ou 'WikiName' pour le lien d'édition vers la page de l'utilisateur",
+    "AB_advanced_action_login_incomingurl_label" => "Url de retour après connexion (réussie ou non)",
+    "AB_advanced_action_login_userpage_label" => "Se rendre sur la page de l'utilisateur une fois connecté",
+    "AB_advanced_action_login_lostpasswordurl_label" => "Url pour les mots de passe perdus",
+    "AB_advanced_action_login_lostpasswordurl_hint" => "Page du wiki ou url",
+    "AB_advanced_action_login_class_label" => "Classe CSS pour le bloc",
+    "AB_advanced_action_login_btnclass_label" => "Classe CSS pour les boutons",
+    "AB_advanced_action_login_nobtn_label" => "Remplacer le bouton par un lien (modal uniquement)",
+    "AB_advanced_action_login_template_label" => "Template",
+    "AB_advanced_action_login_template_default" => "Standard",
+    "AB_advanced_action_login_template_modal" => "Modal",
+    "AB_advanced_action_login_template_horizontal" => "Horizontal",
+    "AB_advanced_action_login_template_dropdown" => "Menu déroulant",
+    "AB_advanced_action_login_loggedinurl_label" => "Url de redirection après connexion réussie",
+    "AB_advanced_action_login_loggedinurl_hint" => "Page du wiki ou url (utilise 'incomingurl' si vide ou en cas d'erreur)",
+    "AB_advanced_action_login_loggedouturl_label" => "Url de redirection après déconnexion",
+    "AB_advanced_action_login_loggedouturl_hint" => "Page du wiki ou url (utilise 'incomingurl' si vide)",
+    
 ];
