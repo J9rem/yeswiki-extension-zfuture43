@@ -21,7 +21,7 @@ Vue.component('BazarMap', {
     'l-marker': window.Vue2Leaflet.LMarker,
     'l-icon': window.Vue2Leaflet.LIcon,
     'l-marker-cluster': LeafletMarkerCluster,
-    SpinnerLoader
+    'spinner-loader': SpinnerLoader
   },
   data() {
     return {
@@ -299,7 +299,6 @@ Vue.component('BazarMap', {
              @click="selectedEntry = null">
         <l-marker-cluster ref="cluster" ></l-marker-cluster>
       </l-map>
-      <spinner-loader class="overlay" v-if="!$root.ready || $root.isLoading" style="z-index:1000;"></spinner-loader>
       
       <!-- SideNav to display entry -->
       <div v-if="selectedEntry && this.params.entrydisplay == 'sidebar'" class="entry-container">
@@ -313,6 +312,8 @@ Vue.component('BazarMap', {
       <div v-if="selectedEntry && this.params.entrydisplay == 'popup'" class="popupentry-container">
         <slot name="popupentry" v-bind="{entry:selectedEntry}"></slot>
       </div>
+
+      <spinner-loader v-if="this.$root.isLoading || !this.$root.ready" class="overlay super-overlay"></spinner-loader>
     </div>
   `
 })

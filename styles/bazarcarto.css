@@ -261,3 +261,7 @@ img.popup-visual {
   margin-left: 5px;
   max-width: 50%;
 }
+
+.spinner-loader.overlay.super-overlay {
+  z-index: 1000;
+}
