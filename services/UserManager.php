@@ -66,9 +66,6 @@ class UserManager extends CoreUserManager implements UserProviderInterface, Pass
             return null;
         }
         // be carefull the User::__construct is really strict about list of properties that should set
-        foreach(User::PROPS_LIST as $propName){
-            $userAsArray[$propName] = $userAsArray[$propName] ?? null;
-        }
         return new User($userAsArray);
     }
 
