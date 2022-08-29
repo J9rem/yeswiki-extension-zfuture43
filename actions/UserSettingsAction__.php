@@ -241,6 +241,7 @@ class UserSettingsAction__ extends YesWikiAction
                     }
                     // forward
                     $this->wiki->session->setMessage(_t('USER_PARAMETERS_SAVED').' !');
+                    session_write_close();
                     if ($this->userLoggedIn) { // In case it's the usther trying to update oneself
                         $this->wiki->Redirect($this->wiki->href());
                     } else { // That's the admin acting, we need to pass the user on
@@ -280,6 +281,7 @@ class UserSettingsAction__ extends YesWikiAction
                     if (!empty($user)) {
                         $this->authController->login($user);
                     }
+                    session_write_close();
                     $this->wiki->Redirect($this->wiki->href());
                 } catch (TokenNotFoundException $th) {
                     $this->errorPasswordChange = _t('USERSETTINGS_PASSWORD_NOT_CHANGED') .' '. $th->getMessage();
@@ -329,6 +331,7 @@ class UserSettingsAction__ extends YesWikiAction
                         ]);
                         if (!empty($user)) {
                             $this->authController->login($user);
+                            session_write_close();
                             $this->wiki->Redirect($this->wiki->href()); // forward
                         }
                         $this->error = _t('USER_CREATION_FAILED').'.';
