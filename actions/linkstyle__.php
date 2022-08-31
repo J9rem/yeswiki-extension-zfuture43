@@ -13,3 +13,4 @@ if (!defined("WIKINI_VERSION")) {
 }
 
 $this->AddCSSFile('tools/zfuture43/styles/actions/my-favorites.css');
+$this->AddCSSFile('tools/zfuture43/styles/default.css');

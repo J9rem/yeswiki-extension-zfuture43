@@ -9,6 +9,7 @@
 
 {{ include_javascript('tools/zfuture43/javascripts/bazar-list-dynamic.js', false, true) }}
 {{ include_css('tools/bazar/presentation/styles/bazar-list-dynamic.css') }}
+{{ include_css('tools/zfuture43/styles/bazar-list-dynamic.css') }}
 
 {# Extra Fields to retrieve from API call. By default we retrieve the one specified in the displayfields config #}
 {% if necessary_fields is defined %}
@@ -38,7 +39,8 @@
       <div class="bazar-list dynamic">
         {% block display_entries %}
         {% endblock %}      
-      </div>      
+      </div>
+      {{ include("@bazar/entries/index-dynamic/_pagination.twig") }}
     </div>
 
     {% if params.groups and not (params.filterposition == "left" and resultsColSize == 12) %}
@@ -46,8 +48,6 @@
     {% endif %}
     
   </div>
-
-  {{ include("@bazar/entries/index-dynamic/_pagination.twig") }}
 
   {% if not params.isInIframe and params.showexportbuttons %}
     {{ include("@bazar/entries/index/_export_buttons.twig") }}
