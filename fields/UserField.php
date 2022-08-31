@@ -14,7 +14,7 @@ namespace YesWiki\Zfuture43\Field;
 use Exception;
 use Psr\Container\ContainerInterface;
 use YesWiki\Bazar\Exception\UserFieldException;
-use YesWiki\Bazar\Field\BazarField;
+use YesWiki\Bazar\Field\UserField as CoreUSerField;
 use YesWiki\Bazar\Service\FormManager;
 use YesWiki\Zfuture43\Controller\AuthController;
 use YesWiki\Zfuture43\Controller\UserController;
@@ -26,7 +26,7 @@ use YesWiki\Wiki;
 /**
  * @Field({"yeswiki_user", "utilisateur_wikini"})
  */
-class UserField extends BazarField
+class UserField extends CoreUSerField
 {
     protected $nameField;
     protected $emailField;
