@@ -340,6 +340,25 @@ if ($params->get("yeswiki_version") == "doryphore" &&
         }
       }
     }
+  
+  // add extra components
+  $extraComponents = [];
+  $files = [];
+  foreach ($this->wiki->extensions as $pluginName => $pluginPath) {
+    $files = glob("tools/$pluginName/javascripts/components/actions-builder/*.js");
+    foreach ($files as $filePath) {
+      $filename = pathinfo($filePath)['filename'];
+      $extraComponents[$filename] = "../../$pluginName/javascripts/components/actions-builder/$filename.js";
+    }
+  }
+  $files = glob("custom/javascripts/components/actions-builder/*.js");
+  foreach ($files as $filePath) {
+    $filename = pathinfo($filePath)['filename'];
+    $extraComponents[$filename] = "../../../custom/javascripts/components/actions-builder/$filename.js";
+  }
+  if (!empty($extraComponents)){
+    $data['extraComponents'] = $extraComponents;
+  }
 ?>
 <div class="modal" id="actions-builder-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">

@@ -31,6 +31,20 @@ import FlyingActionBar from './components/flying-action-bar.js'
 import InputHint from './components/InputHint.js'
 import AddonIcon from './components/AddonIcon.js'
 
+var components = { InputPageList, InputText, InputCheckbox, InputList, InputIcon, InputColor, 
+  InputFormField, InputHidden, InputDivider,
+  InputFacette, InputReaction, InputIconMapping, InputColorMapping, InputGeo, InputClass, InputCorrespondance,
+  InputColumnsWidth,
+  WikiCodeInput, PreviewAction };
+if (actionsBuilderData.hasOwnProperty('extraComponents')){
+  for (const name in actionsBuilderData.extraComponents) {
+    let filepath = actionsBuilderData.extraComponents[name];
+    
+    let {default: tmp} = await import(filepath);
+    components[name]=tmp;
+  }
+}
+
 const ACTIONS_BACKWARD_COMPATIBILITY = {
   calendrier: 'bazarcalendar',
   map: 'bazarcarto'
@@ -49,11 +63,7 @@ if (!('noModule' in HTMLScriptElement.prototype)) {
 
 window.myapp = new Vue({
   el: "#actions-builder-app",
-  components: { InputPageList, InputText, InputCheckbox, InputList, InputIcon, InputColor, 
-                InputFormField, InputHidden, InputDivider,
-                InputFacette, InputReaction, InputIconMapping, InputColorMapping, InputGeo, InputClass, InputCorrespondance,
-                InputColumnsWidth,
-                WikiCodeInput, PreviewAction },
+  components: components,
   mixins: [ InputHelper ],
   data: {
     // Available Actions
@@ -337,9 +347,10 @@ window.myapp = new Vue({
   },
   watch: {
     selectedFormsIds:function (val, oldVal) {
-      if (oldVal.length != val.length ||
+      if (val && oldVal && (
+        oldVal.length != val.length ||
         (Array.isArray(val) && !Array.isArray(oldVal)) ||
-        !val.every((e)=>oldVal.includes(e))
+        !val.every((e)=>oldVal.includes(e)))
         ){
         this.getSelectedFormsByAjax()
       }
