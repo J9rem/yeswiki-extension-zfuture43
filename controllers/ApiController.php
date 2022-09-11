@@ -330,20 +330,21 @@ class ApiController extends YesWikiController
             );
         } else {
             $property = filter_input($method, 'property', FILTER_UNSAFE_RAW);
-            $property = ($property === false) ? "" : htmlspecialchars(strip_tags($property));
+            $property = in_array($property, [false,null], true) ? "" : htmlspecialchars(strip_tags($property));
             if (empty($property)) {
                 $property = null;
             }
-            $username = filter_input($method, 'username', FILTER_UNSAFE_RAW);
-            $username = ($username === false) ? "" : htmlspecialchars(strip_tags($username));
+
+            $username = filter_input($method, 'user', FILTER_UNSAFE_RAW);
+            $username = in_array($username, [false,null], true) ? "" : htmlspecialchars(strip_tags($username));
             if (empty($username)) {
                 if (!$this->wiki->UserIsAdmin()) {
-                    $username = $this->getService(UserManager::class)->getLoggedUser()['name'];
+                    $username = $this->getService(AuthController::class)->getLoggedUser()['name'];
                 } else {
                     $username = null;
                 }
             }
-            $currentUser = $this->getService(UserManager::class)->getLoggedUser();
+            $currentUser = $this->getService(AuthController::class)->getLoggedUser();
             if (!$this->wiki->UserIsAdmin() && $currentUser['name'] != $username) {
                 $apiResponse = new ApiResponse(
                     ['error' => 'Not authorized to access a triple of another user if not admin !'],
