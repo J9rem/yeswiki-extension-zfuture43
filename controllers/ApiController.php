@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace YesWiki\Zfuture43\Controller;
 
 use Exception;
@@ -85,7 +86,7 @@ class ApiController extends YesWikiController
         }
         return new ApiResponse($result, $code);
     }
-    
+
     /**
      * @Route("/api/users",methods={"POST"}, options={"acl":{"public","@admins"}},priority=2)
      */
@@ -174,7 +175,7 @@ class ApiController extends YesWikiController
             Response::HTTP_OK
         );
     }
-    
+
     /**
      * @Route("/api/triples/{resource}", methods={"GET"}, options={"acl":{"public", "+"}},priority=2)
      */
@@ -244,9 +245,9 @@ class ApiController extends YesWikiController
             in_array($result, [0,3]) ? Response::HTTP_OK : Response::HTTP_INTERNAL_SERVER_ERROR
         );
     }
-    
+
     /**
-     * @Route("/api/triples/{resource}/delete", methods={"POST"}, options={"acl":{"public", "+"}},priority=2)
+     * @Route("/api/triples/{resource}/delete", methods={"POST"}, options={"acl":{"public", "+"}},priority=5)
      */
     public function deleteTriples($resource)
     {
@@ -254,7 +255,7 @@ class ApiController extends YesWikiController
         if (!empty($apiResponse)) {
             return $apiResponse;
         }
-        
+
         if (empty($property)) {
             return new ApiResponse(
                 ['error' => 'Property should not be empty !'],
@@ -273,7 +274,7 @@ class ApiController extends YesWikiController
             $rawFilters['user'] = $username;
         }
 
-        $triples = null;
+        $triples = [];
         if (!empty($rawFilters)) {
             foreach ($rawFilters as $key => $rawValue) {
                 $value = empty($rawValue) ? null : "%\\\"{$key}\\\":\\\"{$rawValue}\\\"%";
@@ -285,29 +286,30 @@ class ApiController extends YesWikiController
                     "=",
                     "LIKE"
                 );
-                if (empty($newTriples)) {
-                    $triples = [];
-                } elseif (is_null($triples)) {
-                    $triples = $newTriples;
-                } elseif (!empty($triples)) {
-                    $newIds = array_map(function ($elem) {
-                        $elem['id'];
+                if (!empty($newTriples)) {
+                    $newTriples = array_filter($newTriples, function ($triple) use ($triples) {
+                        $sameTriples = array_filter($triples, function ($registeredTriple) use ($triple) {
+                            return $registeredTriple['resource'] == $triple['resource'] &&
+                                $registeredTriple['property'] == $triple['property'] &&
+                                $registeredTriple['value'] == $triple['value'] ;
+                        });
+                        return empty($sameTriples);
                     });
-                    $triples = array_filter($triples, function ($elem) use ($newIds) {
-                        return in_array($elem['id'], $newIds);
-                    });
+                    foreach ($newTriples as $triple) {
+                        $triples[] = $triple;
+                    }
                 }
             }
+        }
 
-            foreach ($triples as $triple) {
-                $this->getService(TripleStore::class)->delete(
-                    $triple['resource'],
-                    $triple['property'],
-                    $triple['value'],
-                    "",
-                    ""
-                );
-            }
+        foreach ($triples as $triple) {
+            $this->getService(TripleStore::class)->delete(
+                $triple['resource'],
+                $triple['property'],
+                $triple['value'],
+                "",
+                ""
+            );
         }
 
         return new ApiResponse(
