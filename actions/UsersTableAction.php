@@ -122,7 +122,7 @@ class UsersTableAction extends YesWikiAction
     {
         if ($isAdmin && (!empty($post['userstable_action']))) { // Check if the page received a post named 'userstable_action'
             $action = filter_var($post['userstable_action'],FILTER_UNSAFE_RAW);
-            $action = ($action === false) ? "" : htmlspecialchars(strip_tags($action));
+            $action = in_array($action, [false,null], true) ? "" : htmlspecialchars(strip_tags($action));
             if ($action != 'deleteUser' || empty($post['username'])) {
                 return $this->render('@templates/alert-message.twig', [
                         'type' => 'danger',
@@ -130,7 +130,7 @@ class UsersTableAction extends YesWikiAction
                 ]);
             }
             $userName = filter_var($post['username'],FILTER_UNSAFE_RAW);
-            $userName = ($userName === false) ? "" : htmlspecialchars(strip_tags($userName));
+            $userName = in_array($userName, [false,null], true) ? "" : htmlspecialchars(strip_tags($userName));
             try {
                 $rawUserName = str_replace(['&#039;','&#39;'], ['\'','\''], $userName);
                 $this->csrfTokenController->checkToken("action\\userstable\\deleteUser\\{$rawUserName}", 'POST', 'csrf-token-delete');
