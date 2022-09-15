@@ -347,11 +347,10 @@ window.myapp = new Vue({
   },
   watch: {
     selectedFormsIds:function (val, oldVal) {
-      if (val && oldVal && (
-        oldVal.length != val.length ||
+      if (!oldVal || (val && (oldVal.length != val.length ||
         (Array.isArray(val) && !Array.isArray(oldVal)) ||
-        !val.every((e)=>oldVal.includes(e)))
-        ){
+        !val.every((e)=>oldVal.includes(e))
+        ))){
         this.getSelectedFormsByAjax()
       }
     },
