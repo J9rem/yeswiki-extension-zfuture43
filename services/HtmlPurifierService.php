@@ -51,9 +51,12 @@ class HtmlPurifierService extends CoreHtmlPurifierService
             $config = HTMLPurifier_Config::createDefault();
 
             //add extra attributes for links in new tab
-            $config->set('HTML.Allowed', 'a[href|target]');
-            $config->set('Attr.AllowedFrameTargets', array('_blank'));
-
+            $config->set('Attr.AllowedFrameTargets', [
+                '_blank',
+                '_parent',
+                '_top',
+            ]);
+            
             $this->purifier = new HTMLPurifier($config);
         }
 
