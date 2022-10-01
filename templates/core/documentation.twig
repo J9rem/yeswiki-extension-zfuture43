@@ -1,0 +1,32 @@
+{# # This file is part of the YesWiki Extension zfuture43.
+# Authors : see README.md file that was distributed with this source code.
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code. #}
+<!DOCTYPE html>
+<head>
+  <meta name="viewport" content="width=device-width" />
+
+  <title>Documentation</title>
+
+  <link rel="stylesheet" href='tools/zfuture43/styles/vendor/docsify/vue-theme-modified.min.css'>
+  <link rel="stylesheet" href='tools/zfuture43/styles/documentation.css'>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <script>
+    var locale = {{ locale|json_encode|raw }};
+    var baseUrl = {{ config.base_url|json_encode|raw }};
+    var i18n = {{ i18n|json_encode|raw }};
+    var extensions = {{ extensions|json_encode|raw }};
+  </script>
+
+  <script src="tools/zfuture43/javascripts/vendor/docsify/docsify.min.js"></script>
+  <script src="tools/zfuture43/javascripts/vendor/lazysizes/lazysizes.min.js"></script>
+  <script src="tools/zfuture43/javascripts/documentation.js"></script>
+  <script src="tools/zfuture43/javascripts/vendor/docsify/plugins/search.js"></script>
+  <script src="tools/zfuture43/javascripts/vendor/docsify/plugins/zoom-image.min.js"></script>
+  <script src="tools/zfuture43/javascripts/vendor/docsify/plugins/docsify-copy-code.min.js"></script>
+</body>
+</html>

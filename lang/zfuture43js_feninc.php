@@ -25,6 +25,8 @@ return [
     "USERSTABLE_USER_NOT_CREATED" => "User '{name}' not created : {error}",
     'USERSTABLE_USER_DELETED' => 'The user "{username}" is deleted.',
     'USERSTABLE_USER_NOT_DELETED' => 'The user "{username}" is not deleted.',
-    
-     
+
+    // Doc
+    "DOC_EDIT_THIS_PAGE_ON_GITHUB" => "Edit this page on Github",
+
 ];

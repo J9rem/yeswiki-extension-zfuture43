@@ -16,13 +16,15 @@ use HTMLPurifier_Config;
 use enshrined\svgSanitize\Sanitizer;
 use voku\helper\AntiXSS;
 use YesWiki\Core\Service\LinkTracker;
-use YesWiki\Core\Service\HtmlPurifierService AS CoreHtmlPurifierService;
+use YesWiki\Core\Service\HtmlPurifierService as CoreHtmlPurifierService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use YesWiki\Security\Controller\SecurityController;
 use YesWiki\Wiki;
 
 class HtmlPurifierService extends CoreHtmlPurifierService
 {
+    public const HTMLPURIFIER_CACHE_FODLER = "cache/HTMLpurifier";
+
     protected $params;
     protected $wiki;
     private $purifier;
@@ -56,7 +58,15 @@ class HtmlPurifierService extends CoreHtmlPurifierService
                 '_parent',
                 '_top',
             ]);
-            
+
+            // set the cache folder
+            // doc : http://htmlpurifier.org/live/configdoc/plain.html#Cache.SerializerPath
+            if (!is_dir(self::HTMLPURIFIER_CACHE_FODLER)) {
+                mkdir(self::HTMLPURIFIER_CACHE_FODLER, 0777, true);
+            }
+            $config->set('Cache.SerializerPath', realpath(self::HTMLPURIFIER_CACHE_FODLER));
+
+
             $this->purifier = new HTMLPurifier($config);
         }
 
