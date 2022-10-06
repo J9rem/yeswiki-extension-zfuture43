@@ -14,6 +14,7 @@ namespace YesWiki\Zfuture43\Service;
 use YesWiki\Bazar\Field\BazarField;
 use YesWiki\Bazar\Field\CheckboxEntryField;
 use YesWiki\Bazar\Field\EnumField;
+use YesWiki\Bazar\Field\RadioEntryField;
 use YesWiki\Bazar\Field\SelectEntryField;
 use YesWiki\Bazar\Service\FormManager as BazarFormManager;
 
@@ -56,7 +57,7 @@ class FormManager extends BazarFormManager
 
                     if ($fieldPropName) {
                         if ($field instanceof EnumField) {
-                            if ($field instanceof SelectEntryField || $field instanceof CheckboxEntryField) {
+                            if ($field instanceof SelectEntryField || $field instanceof CheckboxEntryField  || $field instanceof RadioEntryField) {
                                 // listefiche ou checkboxfiche
                                 $facetteValue[$fieldPropName]['type'] = 'fiche';
                             } else {
