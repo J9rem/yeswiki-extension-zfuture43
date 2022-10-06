@@ -23,7 +23,7 @@ use YesWiki\Wiki;
 
 class HtmlPurifierService extends CoreHtmlPurifierService
 {
-    public const HTMLPURIFIER_CACHE_FODLER = "cache/HTMLpurifier";
+    public const HTMLPURIFIER_CACHE_FOLDER = "cache/HTMLpurifier";
 
     protected $params;
     protected $wiki;
@@ -61,10 +61,10 @@ class HtmlPurifierService extends CoreHtmlPurifierService
 
             // set the cache folder
             // doc : http://htmlpurifier.org/live/configdoc/plain.html#Cache.SerializerPath
-            if (!is_dir(self::HTMLPURIFIER_CACHE_FODLER)) {
-                mkdir(self::HTMLPURIFIER_CACHE_FODLER, 0777, true);
+            if (!is_dir(self::HTMLPURIFIER_CACHE_FOLDER)) {
+                mkdir(self::HTMLPURIFIER_CACHE_FOLDER, 0777, true);
             }
-            $config->set('Cache.SerializerPath', realpath(self::HTMLPURIFIER_CACHE_FODLER));
+            $config->set('Cache.SerializerPath', realpath(self::HTMLPURIFIER_CACHE_FOLDER));
 
 
             $this->purifier = new HTMLPurifier($config);
