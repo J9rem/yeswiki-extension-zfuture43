@@ -4,6 +4,8 @@
 # file that was distributed with this source code. #}
 
 {{ include_javascript('javascripts/vendor/vue/vue.js') }}
+{# compatibility with twolevels extension #}
+{{ include_javascript('tools/twolevels/javascripts/bazar/define-common.js') }}
 
 {% block assets %}{% endblock %}
 
