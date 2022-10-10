@@ -44,7 +44,7 @@ class UserManagerTest extends YesWikiTestCase
         $users = $userManager->getAll();
         $this->assertTrue(is_array($users));
         $this->assertGreaterThan(0, count($users));
-        
+
         return $users;
     }
 
@@ -140,7 +140,7 @@ class UserManagerTest extends YesWikiTestCase
         } else {
             $email = $firstUser['email'];
         }
-        
+
         $password= $this->randomString(25, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 -_');
         $exceptionThrown = false;
         $userNameAlreadyExist = false;
@@ -157,7 +157,7 @@ class UserManagerTest extends YesWikiTestCase
         }
         try {
             if (!empty($user)) {
-                $userManager->delete($user);
+                $userManager->deleteCommon($user);
             }
         } catch (Throwable $th) {
         }
@@ -179,7 +179,7 @@ class UserManagerTest extends YesWikiTestCase
             $this->assertEquals($user['email'], $email);
         }
     }
-    
+
     /**
      * @param UserManager $userManager
      * @return User $createdUser
@@ -193,14 +193,14 @@ class UserManagerTest extends YesWikiTestCase
             $name= $this->randomString(1, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')
                 .$this->randomString(25, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 -_');
         } while (!empty($userManager->getOneUserByName($name)));
-        
+
         $password= $this->randomString(25, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 -_');
         $userManager->create($name, $email, $password);
         $user = $userManager->getOneUserByName($name);
 
         return $user;
     }
-    
+
     /**
      * @depends testUserManagerExisting
      * @depends testCreate
@@ -212,7 +212,7 @@ class UserManagerTest extends YesWikiTestCase
         $user = $this->createRandomUser($userManager);
         $exceptionThrown = false;
         try {
-            $userManager->delete($user);
+            $userManager->deleteCommon($user);
             $createdUser = $userManager->getOneUserByName($user['name']);
         } catch (Throwable $th) {
             $exceptionThrown = true;
@@ -267,7 +267,7 @@ class UserManagerTest extends YesWikiTestCase
             ],'newRandom',false,false,false],
         ];
     }
-    
+
     /**
      * @depends testUserManagerExisting
      * @depends testCreate
@@ -309,13 +309,13 @@ class UserManagerTest extends YesWikiTestCase
             }
             $newValues['email'] = $email;
         }
-        
+
         $exceptionThrown = false;
         $userNameAlreadyExist = false;
         $emailAlreadyExist = false;
         $exceptionMessage="";
         try {
-            $userManager->update($user, $newValues);
+            $userManager->updatecommon($user, $newValues);
             $user = $userManager->getOneUserByName($user['name']);
         } catch (UserNameAlreadyUsedException $ex) {
             $userNameAlreadyExist = true;
@@ -327,7 +327,7 @@ class UserManagerTest extends YesWikiTestCase
         }
         try {
             if (!empty($user)) {
-                $userManager->delete($user);
+                $userManager->deleteCommon($user);
             }
         } catch (Throwable $th) {
         }
@@ -359,8 +359,8 @@ class UserManagerTest extends YesWikiTestCase
             }
         }
     }
-    
-    
+
+
     /**
      * gives a random string with ascii characters
      * @param int $length

@@ -12,6 +12,7 @@
 namespace YesWiki\Zfuture43\Service;
 
 use Exception;
+use ReflectionMethod;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
@@ -28,20 +29,21 @@ use YesWiki\Zfuture43\Exception\DeleteUserException;
 use YesWiki\Zfuture43\Exception\UserEmailAlreadyUsedException;
 use YesWiki\Zfuture43\Exception\UserNameAlreadyUsedException;
 use YesWiki\Zfuture43\Service\AclService;
+use YesWiki\Core\Entity\User as CoreUser;
 use YesWiki\Core\Service\DbService;
 use YesWiki\Core\Service\UserManager as CoreUserManager;
 use YesWiki\Zfuture43\Service\PasswordHasherFactory;
 use YesWiki\Security\Controller\SecurityController;
 use YesWiki\Wiki;
 
-class UserManager extends CoreUserManager implements UserProviderInterface, PasswordUpgraderInterface
+trait UserManagerCommon
 {
     protected $wiki;
     protected $dbService;
     protected $passwordHasherFactory;
     protected $securityController;
     protected $params;
-    
+
     private $getOneByNameCacheResults;
 
 
@@ -65,21 +67,15 @@ class UserManager extends CoreUserManager implements UserProviderInterface, Pass
         if (empty($userAsArray)) {
             return null;
         }
-        if ($fillEmpty){
+        if ($fillEmpty) {
             foreach (User::PROPS_LIST as $key) {
-                if (!array_key_exists($key,$userAsArray)){
+                if (!array_key_exists($key, $userAsArray)) {
                     $userAsArray[$key] = null;
                 }
             }
         }
         // be carefull the User::__construct is really strict about list of properties that should set
         return new User($userAsArray);
-    }
-
-    public function getOneByName($name, $password = null): ?array
-    {
-        $user = $this->getOneUserByName($name,$password);
-        return $user ? $user->getArrayCopy() : null;
     }
 
     public function getOneUserByName($name, $password = null): ?User
@@ -96,12 +92,6 @@ class UserManager extends CoreUserManager implements UserProviderInterface, Pass
         return $this->arrayToUser($result);
     }
 
-    public function getOneByEmail($name, $password = null): ?array
-    {
-        $user = $this->getOneUserByEmail($name,$password);
-        return $user ? $user->getArrayCopy() : null;
-    }
-
     public function getOneUserByEmail($mail, $password = null): ?User
     {
         return $this->arrayToUser($this->dbService->loadSingle('select * from' . $this->dbService->prefixTable('users') . "where email = '" . $this->dbService->escape($mail) . "' " . (!is_string($password) ? "" : "and password = '" . $this->dbService->escape($password) . "'") . ' limit 1'));
@@ -114,11 +104,11 @@ class UserManager extends CoreUserManager implements UserProviderInterface, Pass
         } else {
             $prefix = $this->params->get('table_prefix');
         }
-        
+
         $selectDefinition = empty($dbFields) ? '*' : implode(', ', $dbFields);
         return array_map(
             function ($userAsArray) {
-                return $this->arrayToUser($userAsArray,true);
+                return $this->arrayToUser($userAsArray, true);
             },
             $this->dbService->loadAll("select $selectDefinition from {$prefix}users order by name")
         );
@@ -132,10 +122,10 @@ class UserManager extends CoreUserManager implements UserProviderInterface, Pass
      */
     public function create($wikiNameOrUser, $email ="", $plainPassword ="")
     {
-        if (!is_string($email) || empty($email)){
+        if (!is_string($email) || empty($email)) {
             $email = "";
         }
-        if (!is_string($plainPassword) || empty($plainPassword)){
+        if (!is_string($plainPassword) || empty($plainPassword)) {
             $plainPassword = "";
         }
         if ($this->securityController->isWikiHibernated()) {
@@ -170,7 +160,7 @@ class UserManager extends CoreUserManager implements UserProviderInterface, Pass
         } else {
             throw new Exception("First parameter of UserManager->create should be string or array!");
         }
-        
+
         if (empty($wikiName)) {
             throw new Exception("'Name' parameter of UserManager->create should not be empty!");
         }
@@ -186,7 +176,7 @@ class UserManager extends CoreUserManager implements UserProviderInterface, Pass
         if (empty($plainPassword)) {
             throw new Exception("'password' parameter of UserManager->create should not be empty!");
         }
-        
+
         unset($this->getOneByNameCacheResults[$wikiName]);
         $user = $this->arrayToUser($userAsArray);
         $passwordHasher = $this->passwordHasherFactory->getPasswordHasher($user);
@@ -204,7 +194,7 @@ class UserManager extends CoreUserManager implements UserProviderInterface, Pass
             "password = '" . $this->dbService->escape($hashedPassword) . "'"
         );
     }
- 
+
     /**
      * update user params
      * for e-mail check is existing e-mail
@@ -215,7 +205,7 @@ class UserManager extends CoreUserManager implements UserProviderInterface, Pass
      * @throws UserEmailAlreadyUsedException
      * @return bool
      */
-    public function update(User $user, array $newValues): bool
+    public function updateCommon(User $user, array $newValues): bool
     {
         if ($this->securityController->isWikiHibernated()) {
             throw new Exception(_t('WIKI_IN_HIBERNATION'));
@@ -244,7 +234,7 @@ class UserManager extends CoreUserManager implements UserProviderInterface, Pass
                 throw new UserEmailAlreadyUsedException();
             }
         }
-        
+
         if (count($authorizedKeys) > 0) {
             $query = "UPDATE {$this->dbService->prefixTable('users')} SET ";
             $query .= implode(
@@ -272,7 +262,7 @@ class UserManager extends CoreUserManager implements UserProviderInterface, Pass
      * @param User $user
      * @throws DeleteUserException
      */
-    public function delete(User $user)
+    public function deleteCommon(User $user)
     {
         if ($this->securityController->isWikiHibernated()) {
             throw new Exception(_t('WIKI_IN_HIBERNATION'));
@@ -295,7 +285,7 @@ class UserManager extends CoreUserManager implements UserProviderInterface, Pass
      * @param bool $adminCheck
      * @return string[] An array of group names
     */
-    public function groupsWhereIsMember(User $user, bool $adminCheck = true)
+    public function groupsWhereIsMemberCommon(User $user, bool $adminCheck = true)
     {
         $groups = $this->wiki->GetGroupsList();
         $groups = array_filter($groups, function ($group) use ($user, $adminCheck) {
@@ -358,7 +348,7 @@ class UserManager extends CoreUserManager implements UserProviderInterface, Pass
     }
 
     /* ~~~~~~~~~~~~~~~~~~ implements  UserProviderInterface ~~~~~~~~~~~~~~~~~~ */
-    
+
     /**
      * Refreshes the user.
      *
@@ -417,9 +407,9 @@ class UserManager extends CoreUserManager implements UserProviderInterface, Pass
     {
         return $this->getOneUserByName($username);
     }
-    
+
     /* ~~~~~~~~~~~~~~~~~~ DEPRECATED ~~~~~~~~~~~~~~~~~~ */
-    
+
     /**
      * @deprecated Use AuthController::getLoggedUser
      */
@@ -450,5 +440,85 @@ class UserManager extends CoreUserManager implements UserProviderInterface, Pass
     public function logout()
     {
         $this->wiki->services->get(AuthController::class)->logout();
+    }
+}
+
+$method = new ReflectionMethod(CoreUserManager::class, 'getOneByName');
+$returnType = $method->getReturnType();
+if ($returnType instanceof \ReflectionNamedType) {
+    $returnTypeName = $returnType->getName();
+    $isNewFormat = ($returnType->getName() == "YesWiki\Core\Entity\User" && $returnType->allowsNull());
+} else {
+    $returnTypes = $returnType->getTypes();
+    if (count($returnTypes) != 1) {
+        $isNewFormat = false;
+    } else {
+        $isNewFormat = (($returnTypes[0])->getName() == "YesWiki\Core\Entity\User" && ($returnTypes[0])->allowsNull());
+    }
+}
+
+if ($isNewFormat) {
+    class UserManager extends CoreUserManager implements UserProviderInterface, PasswordUpgraderInterface
+    {
+        use UserManagerCommon;
+
+        public function getOneByName($name, $password = null): ?CoreUser
+        {
+            $user = $this->getOneUserByName($name, $password);
+            return $user ? new CoreUser($user->getArrayCopy()) : null;
+        }
+
+        public function getOneByEmail($name, $password = null): ?CoreUser
+        {
+            $user = $this->getOneUserByEmail($name, $password);
+            return $user ? new CoreUser($user->getArrayCopy()) : null;
+        }
+
+        public function update(CoreUser $user, array $newValues): bool
+        {
+            return $this->updateCommon(new User($user->getArrayCopy()), $newValues);
+        }
+
+        public function delete(CoreUser $user)
+        {
+            $this->deleteCommon(new User($user->getArrayCopy()));
+        }
+
+        public function groupsWhereIsMember(CoreUser $user, bool $adminCheck = true)
+        {
+            return $this->groupsWhereIsMemberCommon(new User($user->getArrayCopy()), $adminCheck);
+        }
+    }
+} else {
+    class UserManager extends CoreUserManager implements UserProviderInterface, PasswordUpgraderInterface
+    {
+        use UserManagerCommon;
+
+        public function getOneByName($name, $password = null): ?array
+        {
+            $user = $this->getOneUserByName($name, $password);
+            return $user ? $user->getArrayCopy() : null;
+        }
+
+        public function getOneByEmail($name, $password = null): ?array
+        {
+            $user = $this->getOneUserByEmail($name, $password);
+            return $user ? $user->getArrayCopy() : null;
+        }
+
+        public function update(User $user, array $newValues): bool
+        {
+            return $this->updateCommon($user, $newValues);
+        }
+
+        public function delete(User $user)
+        {
+            $this->deleteCommon($user);
+        }
+
+        public function groupsWhereIsMember(User $user, bool $adminCheck = true)
+        {
+            return $this->groupsWhereIsMemberCommon($user, $adminCheck);
+        }
     }
 }

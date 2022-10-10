@@ -79,10 +79,10 @@ class UserControllerTest extends YesWikiTestCase
             $name= $commons->generateRandomString(1, self::UPPER_CHARS)
                 .$commons->generateRandomString(25, self::CHARS_FOR_PASSWORD);
         } while (!empty($userManager->getOneUserByName($name)));
-        
+
         $password= $commons->generateRandomString(25, self::CHARS_FOR_PASSWORD);
 
-        
+
         $userManager->create($name, $email, $password);
         $user = $userManager->getOneUserByName($name);
 
@@ -90,7 +90,7 @@ class UserControllerTest extends YesWikiTestCase
             case '!@admins':
                 $authController->login($user);
                 break;
-            // case '%':
+                // case '%':
                 // not currently covered
             //     $authController->login($user);
             //     break;
@@ -115,7 +115,7 @@ class UserControllerTest extends YesWikiTestCase
 
         // delete it after call to UserController::delete
         if (!empty($userDeleted)) {
-            $userManager->delete($userDeleted);
+            $userManager->deleteCommon($userDeleted);
         }
         $authController->logout();
 
@@ -177,7 +177,7 @@ class UserControllerTest extends YesWikiTestCase
         $userController = $wiki->services->get(UserController::class);
         $userManager = $wiki->services->get(UserManager::class);
         $commons = $wiki->services->get(Commons::class);
-        
+
         $users = $userManager->getAll();
         $firstUser = $users[array_key_first($users)];
         if ($name == 'newRandom') {
@@ -206,7 +206,7 @@ class UserControllerTest extends YesWikiTestCase
         $newValues['name'] = $name;
         $newValues['email'] = $email;
         $newValues['password'] = $commons->generateRandomString(25, self::CHARS_FOR_PASSWORD);
-        
+
         $exceptionThrown = false;
         $userNameAlreadyExist = false;
         $emailAlreadyExist = false;
@@ -224,7 +224,7 @@ class UserControllerTest extends YesWikiTestCase
         }
         try {
             if (!empty($user)) {
-                $userManager->delete($user);
+                $userManager->deleteCommon($user);
             }
         } catch (Throwable $th) {
         }
@@ -259,7 +259,7 @@ class UserControllerTest extends YesWikiTestCase
         }
     }
 
-    
+
     public function dataProviderTestSanitizeName()
     {
         // name,char,length,Other Exception
@@ -279,7 +279,7 @@ class UserControllerTest extends YesWikiTestCase
             'contain @' => ['thirdplace','@',10,false],
         ];
     }
-    
+
     /**
      * @depends testUserControllerExisting
      * @depends testCreate
@@ -337,7 +337,7 @@ class UserControllerTest extends YesWikiTestCase
         }
         try {
             if (!empty($user)) {
-                $userManager->delete($user);
+                $userManager->deleteCommon($user);
             }
         } catch (Throwable $th) {
         }

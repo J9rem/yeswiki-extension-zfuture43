@@ -70,7 +70,7 @@ class UserSettingsActionTest extends YesWikiTestCase
         $output = $wiki->Format("{{usersettings}}");
         $rexExpStr = "/.*".implode('\s*', explode(' ', preg_quote('<input type="hidden" name="usersettings_action" value="signup" />', '/'))).".*/";
         $this->assertMatchesRegularExpression($rexExpStr, $output, "`usersettings_action` input badly set in user-signup-form.twig !");
-        
+
         $rexExpStr = "/.*".implode('\s*', explode(' ', preg_quote('<input class="', '/').'.*'.preg_quote('" name="name"', '/'))).".*/";
         $this->assertMatchesRegularExpression($rexExpStr, $output, "`name` input badly set in user-signup-form.twig !");
 
@@ -89,14 +89,14 @@ class UserSettingsActionTest extends YesWikiTestCase
         $userManager = $wiki->services->get(UserManager::class);
         $authController = $wiki->services->get(AuthController::class);
         $users = $userManager->getAll();
-        
+
         // use first user
         $user = $users[0];
         $email = $user['email'];
         $name = $user['name'];
 
         $this->ensureCacheFolderIsWritable();
-        
+
         // login
         $authController->login($user);
 
@@ -132,7 +132,7 @@ class UserSettingsActionTest extends YesWikiTestCase
         $rexExpStr = "/.*".implode('\s*', explode(' ', preg_quote('<input class="', '/').'.*'.preg_quote('" type="password" name="oldpass"', '/'))).".*/";
         $this->assertMatchesRegularExpression($rexExpStr, $output, "`oldpass` input badly set in usersettings.twig !");
     }
-    
+
     /**
      * @depends testWikiExisting
      * @depends testDisplayForm
@@ -149,7 +149,7 @@ class UserSettingsActionTest extends YesWikiTestCase
         $this->ensureCacheFolderIsWritable();
 
         $output = $wiki->Format("{{usersettings}}");
-        
+
         $rexExpStr = "/.*".implode(
             '\s*',
             explode(
@@ -168,7 +168,7 @@ class UserSettingsActionTest extends YesWikiTestCase
         ).".*/";
         $this->assertMatchesRegularExpression($rexExpStr, $output, "`email` input badly set in user-signup-form.twig !");
 
-        
+
         $rexExpStr = "/.*".implode('\s*', explode(' ', preg_quote('<input type="hidden" name="usersettings_action" value="signup" />', '/'))).".*/";
         $this->assertMatchesRegularExpression($rexExpStr, $output, "`usersettings_action` input badly set in user-signup-form.twig !");
 
@@ -210,7 +210,7 @@ class UserSettingsActionTest extends YesWikiTestCase
                 $name= $this->randomString(1, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')
                     .$this->randomString(25, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 -_');
             } while (!empty($userManager->getOneUserByName($name)));
-            
+
             $password= $this->randomString(25, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 -_');
 
             $_POST['email'] = $email;
@@ -237,7 +237,7 @@ class UserSettingsActionTest extends YesWikiTestCase
             $connectedUser = $authController->getLoggedUser();
             //clean user before tests
             if (!empty($user['name'])) {
-                $userManager->delete($user);
+                $userManager->deleteCommon($user);
             }
 
             if ($expectedResult) {
@@ -250,7 +250,7 @@ class UserSettingsActionTest extends YesWikiTestCase
                 $this->assertFalse($exitExceptionCaught);
                 $this->assertIsNotArray($user);
                 $this->assertNotInstanceOf(User::class, $user);
-            
+
                 $rexExpStr = "/.*".implode(
                     '\s*',
                     explode(

@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace YesWiki\Zfuture43\Controller;
 
 use Exception;
@@ -30,7 +31,7 @@ class UserController extends YesWikiController
 
     public const DEFAULT_NAME_MAX_LENGTH = 80;
     public const DEFAULT_EMAIL_MAX_LENGTH = 254;
-    
+
     private $limitations;
 
     protected $authController;
@@ -109,7 +110,7 @@ class UserController extends YesWikiController
         throw new Exception(_t('USER_CREATION_FAILED').'.');
         return null;
     }
-    
+
     /**
      * update user params
      * for e-mail check is existing e-mail
@@ -124,7 +125,7 @@ class UserController extends YesWikiController
     public function update(User $user, array $newValues): bool
     {
         $newValues = $this->sanitizeValues($newValues);
-        $this->userManager->update($user, $newValues);
+        $this->userManager->updatecommon($user, $newValues);
         if (isset($newValues['password'])) {
             $user = $this->userManager->getOneUserByName($user['name']);
             $this->authController->setPassword($user, $newValues['password']);
@@ -184,7 +185,7 @@ class UserController extends YesWikiController
         $this->checkIfUserIsNotAloneInEachGroup($user);
         $this->deleteUserFromEveryGroup($user);
         $this->removeOwnership($user);
-        $this->userManager->delete($user);
+        $this->userManager->deleteCommon($user);
     }
 
     /**
@@ -233,7 +234,7 @@ class UserController extends YesWikiController
      */
     private function checkIfUserIsNotAloneInEachGroup(User $user)
     {
-        $grouptab = $this->userManager->groupsWhereIsMember($user, false);
+        $grouptab = $this->userManager->groupsWhereIsMemberCommon($user, false);
         foreach ($grouptab as $group) {
             $groupmembers = $this->wiki->GetGroupACL($group);
             $groupmembers = str_replace(["\r\n","\r"], "\n", $groupmembers);
@@ -388,7 +389,7 @@ class UserController extends YesWikiController
         if (empty($value)) {
             throw new Exception(_t('USER_YOU_MUST_SPECIFY_AN_EMAIL').'.');
         }
-        
+
         if (!is_scalar($value)) {
             throw new Exception(_t('USER_YOU_MUST_SPECIFY_A_STRING', ['name' =>'email']));
         }
