@@ -19,6 +19,9 @@ services:
   YesWiki\Zfuture43\Controller\:
     resource: 'controllers/*'
 
+  YesWiki\Zfuture43\Controller\EntryController:
+    decorates: YesWiki\Bazar\Controller\EntryController
+
   YesWiki\Zfuture43\Service\FormManager:
     decorates: YesWiki\Bazar\Service\FormManager
 
