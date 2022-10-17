@@ -2,63 +2,51 @@
 
 > TODO Petite description
 
-## Gestion du site (à caler ici quelques part)
+## Gestion du site : plan de l'administration
 
-### Accueil de gestion du site
+**Accueil de gestion du site**
 
 Vous avez là un récap des menus et pages spéciales du wiki.
 
-### Droits d'accès
+**Droits d'accès**
 
 C'est ici que vous pouvez indiquer "qui a le droit de faire quoi sur quelle page".
 Il faut être identifié comme administrateur pour visionner et modifier les informations de cet espace.
 
-### Look
+[Voir la rubrique dédiée](/tools/zfuture43/docs/users/fr/admin?id=g%c3%a9rer-les-droits)
+
+**Look**
 
 C'est par là que vous personnalisez le squelette et l'esthétique de votre wiki.
 Il faut être identifié comme administrateur pour visionner et modifier les informations de cet espace.
 
-### Utilisateurs et groupes
+[Voir la rubrique dédiée](/tools/zfuture43/docs/users/fr/admin?id=g%c3%a9rer-le-look)
+
+**Utilisateurs et groupes**
 
 Ici vous visualisez les comptes utilisateurs créés et vous pouvez les organiser en "groupes".
 Il faut être identifié comme administrateur pour visionner et modifier les informations de cet espace.
 
-### Mots clés
+[Voir la rubrique dédiée](/tools/zfuture43/docs/users/fr/admin?id=gestion-des-droits-par-utilisateurice-ou-par-groupe)
+
+**Mots clés**
 
 Si vous avez utilisé des mots clés pour qualifier vos pages wiki vous en trouvez un récap ici.
 Il faut être identifié comme administrateur pour visionner et modifier les informations de cet espace.
 
-### Fichier de conf
+**Fichier de conf**
 
 Certains éléments de configuration peuvent être personnalisés ici : accès par défaut, sécurité, indexation ...
 Il faut être identifié comme administrateur pour visionner et modifier les informations de cet espace.
 Nous les explorerons au fil des modules.
 
-### Mises à jour / extensions
+**Mises à jour / extensions**
 
 Vous pouvez voir ici la version du wiki et s'il s'agit de la toute dernière.
 Si vous êtes identifié comme administrateur vous pouvez faire les mises à jour.
 
 
-## Gestion du YesWiki (à écrire)
-### Éditer les droits d'accès aux actions
-### Éditer les droits d'accès aux handlers
-### Éditer les groupes d'utilisateurs
-### Gestion des pages
-### Gérer les droits d'accès aux pages
-### Table des utilisateurs
-### Gérer le thème des pages
-### Modifier les paramètres du fichier de configuration
-### Définir le thème de base
-### Tester les thèmes disponibles
-### Gestion des tags
-### S'abonner pour recevoir périodiquement le contenu d'une page par courriel
-### Nettoyer les pages récemment vandalisées
-### Gestion des fichiers
-
-
 ## Gérer les droits
-
 ### Introduction aux droits d'accès
 
 YesWiki a beau être très ouvert lors de son installation (ce qui oblige à se poser quelques questions), il n'en offre pas moins une gestion fine des droits de lecture et d'écriture de son contenu. **Cette gestion permettra :**
@@ -96,11 +84,8 @@ Si vous avez reçu des droits d'admin sur le wiki, vous pourrez modifier toutes 
 
 En bas de page, vous allez trouver un bouton permissions. En cliquant sur celui-ci, une fenêtre popup va vous permettre de gérer les droits en lecture et écriture.
 **Voici les possibilités qui vous sont offertes**
-[
 
 ![image EditerPermissions.png (14.2kB)](images/M22Lectures_popuppermission_20220216161156_20220216151445.png)
-
-](images/M22Lectures_popuppermission_20220216161156_20220216151445.png)
 
 **Cette gestion page par page et user par user est vite "pesante"**
 
@@ -109,9 +94,8 @@ En bas de page, vous allez trouver un bouton permissions. En cliquant sur celui-
 *   un module de gestion des droits des utilisateurs par groupe a été créé
 *   un module de gestion du droit d'accès aux pages en masse a été créé
 
-### Gérer les droits en masse
 
-#### Gestion des droits par utilisateur
+### Gestion des droits par utilisateurice ou par groupe
 
 La gestion utilisateur par utilisateur est très fine MAIS présente quelques inconvénients :
 
@@ -138,22 +122,17 @@ Pour gérer les groupes (et les utilisateurs inclus) cela se passe sur la page "
 
 Pour info : en bas de cette page, vous découvrez et gérer (si vous êtes dans le groupe @admins) les utilisateurs connus du wiki.
 
-[
-
 ![image EditerPermissions.png (14.2kB)](images/M22GererLesDroitsDAccesEnMasse_Gerergroupe_20220223095430_20220223095106.png)
 
-](images/M22GererLesDroitsDAccesEnMasse_Gerergroupe_20220223095430_20220223095106.png)
 
 **Pour ajouter ou retirer un utilisateur d'un groupe**
 lorsque j'ai cliqué sur voir/éditer le groupe concerné, il me suffit dans la case qui apparaît d'indiquer (ou de retirer) le nomwiki de l'utilisateur sur une ligne (sans virgule) et d'enregistrer
 
-[
 
 ![image EditerPermissions.png (14.2kB)](images/M22GererLesDroitsDAccesEnMasse_ajoutgroupe_20220223095430_20220223095137.png)
 
-](images/M22GererLesDroitsDAccesEnMasse_ajoutgroupe_20220223095430_20220223095137.png)
 
-#### Gestion des droits des pages en masse
+### Gestion des droits des pages en masse
 
 La gestion page par page c'est sympa mais quand on a 150 pages dans son wiki... ça peut vite devenir très long. Heureusement il existe une page permettant de gérer les changements des droits d'accès de plusieurs pages (toutes les pages) en même temps.
   
@@ -165,25 +144,15 @@ Sur cette page, vous pourrez aussi voir les droits qui sont attribués à chacun
 
 via les listes déroulantes proposées (droit de lecture, droit d'écriture)
 
-[
-
 ![image EditerPermissions.png (14.2kB)](images/M22GererLesDroitsDAccesEnMasse_modesimple_20220223095430_20220223094848.png)
 
-](images/M22GererLesDroitsDAccesEnMasse_modesimple_20220223095430_20220223094848.png)
 
 ##### en mode avancé
 
 via les champs classiques (ceux qu'on retrouve quand on édite les droits d'une page seule)
 
-[
-
 ![image EditerPermissions.png (14.2kB)](images/M22GererLesDroitsDAccesEnMasse_modeavance_20220223095430_20220223094937.png)
 
-](images/M22GererLesDroitsDAccesEnMasse_modeavance_20220223095430_20220223094937.png)
-
-  
-
-[Et on fait quoi avec les pages qui n'existent pas encore mais vont évidemment apparaître !](https://quincaillere.org/formationgarecentrale2022/?M22GererLesAccesDesPagesNonEncoreExi&course=P2Parcours2&module=M22PenserLesAccesPourOuvrirEtFermerAL)
 
 ### Gérer les droits d'accès des pages non encore existantes
 
@@ -236,90 +205,35 @@ La plupart de ces composants proposent dans leurs paramètres avancés, des choi
 
 Ces opérations sont aussi réalisables pour les différents champs d'un formulaire (nous verrons ça la semaine prochaine).
 
-### Lutter contre le spams en gérant les droits d'accès
+### Configurer les accès à certaines parties au sein même des pages
+(à trouver ou écrire)
 
-#### En cas de vagues de spams
+### Éditer les droits d'accès aux actions
+(à trouver ou écrire ET à déplacer pour alléger cette section)
 
-Hélas comme la plupart des wikis ouverts (MediaWiki, DokuWiki), YesWiki n'échappe pas aux attaques de quelques emmerdeurs référenceurs soit-disant professionnels et autres robots de spam, qui polluent les contenus des pages.
-
-##### Les 10 commandements du lutteur anti spam
-
-**1**. Je consulte régulièrement mon wiki
-**2**. Je m'abonne à son flux RSS
-**3**. Je consulte la page TableauDeBordDeCeWiki de mon wiki (accessible depuis la "roue crantée")
-**4**. Je vérifie les dernières pages modifiées dans le TableauDeBordDeCeWiki ou sur la page DerniersChangements
-**5**. Je vérifie les derniers comptes crées sur la page TableauDeBordDeCeWiki. (Action {{Listusers last="20"}} )
-**6**. J'édite les pages en question et je supprime les parties indésirables, puis je sauve. (Cela prend moins d'une minute)
-**7**. Je protège l'accès en écriture des pages non collectives ([PageRapideHaut](https://quincaillere.org/formationgarecentrale2022/?PageRapideHaut), [PageHeader](https://quincaillere.org/formationgarecentrale2022/?PageHeader), [PageFooter](https://quincaillere.org/formationgarecentrale2022/?PageFooter), etc.)
-**7bis** Je ferme temporairement l'entièreté du wiki en écriture
-**8**. Je mets à jour mon [YesWiki](https://quincaillere.org/formationgarecentrale2022/?YesWiki) quand une nouvelle version sort.
-**9**. Pour les plus endurcis, je fais le grand ménage avec l'outil despam (voir plus bas)
-**10**. Je ne cède pas à la tentation de transformer mon espace collaboratif en bunker. Et je continue à mettre en balance les effets positifs de l'intelligence collective.
-
-#### Les symptômes : comment identifier les spams ?
-
-*   Vous pouvez découvrir sur une ou plusieurs pages des liens vers des sites externes qui semblent sans rapport avec l'objet du wiki _(qui vendent des robes de mariée, des sites indonésien sans rapport, des liens commerciaux vers la loi duflot, des textes en langue étrangère etc..)_
-*   Il se peut aussi que de nouvelles pages soit créées, et dans certains cas de nouveaux utilisateurs wikis.
-
-Dans tous les cas, il sera toujours possible de faire marche arrière, et les informations sensibles d'accès ftp ou mysql à votre serveur ne peuvent pas être trouvés comme cela.
-
-#### Fermer l'accès au wiki à certaines adresses IP
-
-Souvent les vagues de spam proviennent d'une région spécifique et on peut s'en préserver via une fermeture des accès aux wikis à ces adresses IP spécifiques (les IP sont spécifiques des régions/pays)
-
-Vous pourrez régler ces détails dans la roue crantée/ gestion du site/ fichier de conf/ blocage d'adresse IP
-
-![image confblocageip.png (44.7kB)](images/LutterContreLeSpamsEnGerantLesDroitsDA_confblocageip_20220223102024_20220223092147.png)
-
-Il faudra au préalable que vous ayez installé l'extension IP block via roue crantée/gestion du site/mise à jour et extensions
-
-![image extensionipblock.png (77.9kB)](images/LutterContreLeSpamsEnGerantLesDroitsDA_extensionipblock_20220223102024_20220223092158.png)
-
-Pour découvrir l'ensemble des stratégies possibles face au spam => [https://yeswiki.net/?LutterContreLeSpam](https://yeswiki.net/?LutterContreLeSpam)
-
-## Gérer les users (à écrire)
-
-groupes ?
-
-## Mettre à jour les pages spéciales
+### Éditer les droits d'accès aux handlers
+(à trouver ou écrire ET à déplacer pour alléger cette section)
 
 ## Gérer le look
 
-### Le menu principal
+### Configuration graphique par défaut
+Pour **changer le thème graphiques sur l'ensemble du site**, on peut personnaliser la configuration wakka.config.php et rajouter les valeurs:
 
-Vous pouvez éditer votre menu principal (appelé menu haut dans Yeswiki) via le menu gestion du site.
+'favorite\_theme' => 'nom du thème correspondant au nom du sous-répertoire thème correspondant à ce thème personnalisé',
+'favorite\_squelette' => 'nom du squelette en liaison avec le thème personnalisé.tpl.html',
+'favorite\_style' => 'nom de la feuille de style en liaison avec le thème personnalisé.css'
 
-><span style="color:red;">Ajouter un imprim écran qui montre le chemin pour arriver sur la page "Gestion du site"</span>
+Exemples :
 
-**Ne pas exéder 7 items différents dans votre menu principal.**
-Si votre menu est trop chargé, il est possible de **créer un menu-déroulant** en décalant d'un espace le lien des sous menus :
+'favorite\_theme' => 'yeswiki',
+'favorite\_squelette' => 'responsive-1col.tpl.html',
+'favorite\_style' => 'blue.css',
 
-![image Capture_image_sous_menu.png (8.4kB)](images/M21bLecturesFaciliterLaNavigation_Capture_image_sous_menu_20220217190910_20220217181145.png)
+Mais cela ne s'applique que pour les nouvelles pages créées.
+Pour les anciennes pages, il faut alors modifier chaque page en mode édition, bouton thème,
+ou bien forcer le thème pour toutes les pages en ajoutant dans wakka.config.php : 'hide\_action\_template' => '1',
 
-#### Le menu vertical
-
-Si vous utilisez le thème graphique "Margot" (thème par défaut sur Yeswiki), il est possible d'utiliser un menu vertical. La structure d'un site (emplacement du menu notamment) est définie dans un fichier html que l'on appelle le **squelette**.
-Pour appliquer ce nouveau squelette, rendez-vous dans Gestion du site :
-1- **Page Mise à jour / Extensions** : mettre à jour le thème Margot
-2- **Page Look Wiki** : modifier le squelette par défault (tout en bas): choisir 1col.vertical-menu.tpl.html.
-
-![image demo_menu_vertical.gif (0.5MB)](images/MenuVertical_demo_menu_vertical_700px_20220218165728_20220218155742.gif)
-
-### Utilisation de la barre latérale
-
-Pour mettre en valeur des informations redondantes ou des liens dans une colonne latérale (gauche ou droite au choix).
-Il faut choisir une structure de page différente : **le squelette**
-squelette 1col-left.tpl.html pour afficher la colonne à gauche
-squelette 1col-right.tpl.html pour afficher la colonne à droite
-
-Ce changement est possible :
-
-* soit au niveau de la page en modifiant le thème (voir tuto ci contre):
-* soit sur plusieurs pages d'un coup en passant par Gestion du site / Look wiki
-
-![image demo_colonne_left.gif (0.4MB)](images/M21bLecturesFaciliterLaNavigation_demo_colonne_left_20220218165158_20220218160845.gif)
-
-## Changer de thème graphique
+### Changer de thème graphique
 
 https://yeswiki.net/?DocumentationChangerThemeGraphique
 
@@ -349,23 +263,7 @@ La liste des thèmes par défaut est modifiable, cela relève d'une tache d'admi
 *   cliquez sur Appliquer puis
 *   Sauvez la page
 
-### Configuration graphique par défaut
 
-Pour **changer le thème graphiques sur l'ensemble du site**, on peut personnaliser la configuration wakka.config.php et rajouter les valeurs:
-
-'favorite\_theme' => 'nom du thème correspondant au nom du sous-répertoire thème correspondant à ce thème personnalisé',
-'favorite\_squelette' => 'nom du squelette en liaison avec le thème personnalisé.tpl.html',
-'favorite\_style' => 'nom de la feuille de style en liaison avec le thème personnalisé.css'
-
-Exemples :
-
-'favorite\_theme' => 'yeswiki',
-'favorite\_squelette' => 'responsive-1col.tpl.html',
-'favorite\_style' => 'blue.css',
-
-Mais cela ne s'applique que pour les nouvelles pages créées.
-Pour les anciennes pages, il faut alors modifier chaque page en mode édition, bouton thème,
-ou bien forcer le thème pour toutes les pages en ajoutant dans wakka.config.php : 'hide\_action\_template' => '1',
 
 ### Ajouter des thèmes graphiques
 
@@ -404,7 +302,7 @@ L'architecture de YesWiki est basée sur [Bootstrap](https://fr.wikipedia.org/wi
 
 Modifier le thème graphique va donc revenir à adapter un squelette en modifiant celui-ci avec la syntaxe Bootstrap adaptée et la feuille de style associée.
 
-## le css
+#### le css
 
 /\*
 Voici un exemple de css custom pour le thème margot (le thème par défaut sous doryphore), il agit sur les variables css non personnalisables dans le thème et permet de faire des css sur mesure.
@@ -480,11 +378,9 @@ Pour en savoir plus, voyez la documentation sur [https://yeswiki.net/?Documentat
 
 }\*/
 
-## créer des mises en page plus fines
-
+#### créer des mises en page plus fines
+à écrire :
 mermaid / Izmir / bootstrap / markdown
-
-
 
 ## Suivre la vie de son wiki
 
@@ -507,12 +403,20 @@ Plusieurs flux RSS sortent du wiki :
  - les modifications de chacun des formulaires
       - ces flux sont accessibles via la page "base de données" de la roue crantée
 
+### Recevoir le contenu d'une page par courriel
+
 ## Lutter contre le spams
 
 Hélas comme la plupart des wikis ouverts (MediaWiki, DokuWiki), YesWiki n'échappe pas aux attaques de quelques ~~emmerdeurs~~ référenceurs soit-disant professionnels et autres robots de spam, qui polluent les contenus des pages.
 
+### Les symptômes : comment identifier les spams ?
 
-### Les 10 commandements du lutteur anti spam
+*   Vous pouvez découvrir sur une ou plusieurs pages des liens vers des sites externes qui semblent sans rapport avec l'objet du wiki _(qui vendent des robes de mariée, des sites indonésien sans rapport, des liens commerciaux vers la loi duflot, des textes en langue étrangère etc..)_
+*   Il se peut aussi que de nouvelles pages soit créées, et dans certains cas de nouveaux utilisateurs wikis.
+
+Dans tous les cas, il sera toujours possible de faire marche arrière, et les informations sensibles d'accès ftp ou mysql à votre serveur ne peuvent pas être trouvés comme cela.
+
+### Les 10 conseils anti-spam
 
 * **1**. Je consulte régulièrement mon wiki
 * **2**. Je m'abonne à son flux RSS [voir plus bas / suivre la vie de mon wiki](#Suivre-la-vie-de-son-wiki)
@@ -524,17 +428,7 @@ Hélas comme la plupart des wikis ouverts (MediaWiki, DokuWiki), YesWiki n'écha
 * **8**. Je maintiens mon wiki à jour
 * **9**. Pour les plus endurcis, je fais le grand ménage avec l'outil despam (voir plus bas)
 * **10**. Je ne cède pas à la tentation de transformer mon espace collaboratif en bunker. Et je continue à mettre en balance les effets positifs de l'intelligence collective.
-
-
-
-### Les symptômes : comment identifier les spams ?
-
-*   Vous pouvez découvrir sur une ou plusieurs pages des liens vers des sites externes qui semblent sans rapport avec l'objet du wiki _(qui vendent des robes de mariée, des sites indonésien sans rapport, des liens commerciaux vers la loi duflot, des textes en langue étrangère etc..)_
-*   Il se peut aussi que de nouvelles pages soit créées, et dans certains cas de nouveaux utilisateurs wikis.
-
-Dans tous les cas, il sera toujours possible de faire marche arrière, et les informations sensibles d'accès ftp ou mysql à votre serveur ne peuvent pas être trouvés comme cela.
-
-
+* 
 ### Que faire si vous avez du spam ?
 
 #### Réparer une page spéciale spammée
@@ -631,3 +525,69 @@ Pour la mise en oeuvre, voir la documentation suivante:
 Cette extension permet de bloquer l'accès à votre wiki en fontion des adresses IP (et de leur provenance géographique).
 Elle s'active via l'onglet Mise à jour / extension de la page gestion du site de votre wiki.
 Les paramètres sont alors visibles dans la partie "Blocage d'adresses IP"
+
+#### Fermer l'accès au wiki à certaines adresses IP
+
+Souvent les vagues de spam proviennent d'une région spécifique et on peut s'en préserver via une fermeture des accès aux wikis à ces adresses IP spécifiques (les IP sont spécifiques des régions/pays)
+
+Vous pourrez régler ces détails dans la roue crantée/ gestion du site/ fichier de conf/ blocage d'adresse IP
+
+![image confblocageip.png (44.7kB)](images/LutterContreLeSpamsEnGerantLesDroitsDA_confblocageip_20220223102024_20220223092147.png)
+
+Il faudra au préalable que vous ayez installé l'extension IP block via roue crantée/gestion du site/mise à jour et extensions
+
+![image extensionipblock.png (77.9kB)](images/LutterContreLeSpamsEnGerantLesDroitsDA_extensionipblock_20220223102024_20220223092158.png)
+
+Pour découvrir l'ensemble des stratégies possibles face au spam => [https://yeswiki.net/?LutterContreLeSpam](https://yeswiki.net/?LutterContreLeSpam)
+
+
+## Fichier de configuration
+(simple copie de ce qu'on a dans nos wikis : à enrichir, expliquer)
+### Paramètres principaux
+ - Titre de votre wiki - wakka_name
+ - Nom de la page d'accueil - root_page
+ - Langue par défaut (fr ou en ou ... auto = langue du navigateur) - default_language
+ - Icône du site (emoji ou URL vers une image PNG) - favicon
+ - Activer le mode de debug (yes ou no) - debug
+ - Fuseau horaire du site (ex. UCT, Europe/Paris, Europe/London, GMT = utiliser celui du serveur,) - timezone
+ - Méthodes autorisées à être affichées dans les iframes (iframe,editiframe,bazariframe,render,all = autoriser tout) - allowed_methods_in_iframe
+ - Nombre maximum de versions d'une page affichées par le handler `/revisions`. - revisionscount
+ - Image d'avatar par défaut pour les commentaires (URL vers une image) - default_comment_avatar
+ - Activer le nettoyage HTML avant sauvegarde. Attention, modifie le contenu à la sauvegarde ! (true ou false) - htmlPurifierActivated
+### Droit d'accès
+ - Droits de lecture par défaut des pages (* pour tous, + pour personnes identifiées, @admins pour groupe admin) - default_read_acl
+ - Droits d'écriture par défaut des pages (* pour tous, + pour personnes identifiées, @admins pour groupe admin) - default_write_acl
+ - Droits de commentaires par défaut des pages (comment-closed pour ferme, * pour tous, + pour personnes identifiées, @admins pour groupe admin) - default_comment_acl
+ - Commentaires activés (true ou false) - comments_activated
+ - Mot de passe demandé pour modifier les pages (voir doc gestion des spams) - password_for_editing
+ - Message informatif pour demander le mot de passe (voir doc gestion des spams) - password_for_editing_message
+ - Autoriser le doubleclic pour éditer les menus et pages spéciales (true ou false) - allow_doubleclic
+### Envoi des e-mails
+ - Remplacer le mail utilisé comme expéditeur des messages - contact_from
+ - Message personnalisé des mails envoyés depuis l'action contact - mail_custom_message
+ - Ajouter 'wiki=' aux liens vers ce wiki dans les e-mails - contact_use_long_wiki_urls_in_emails
+### Barre d'édition pour les pages et les champs texte
+ - Nom du champ bazar texte long pour lequel les composants doivent être visibles - actionbuilder_textarea_name
+### Insertion de médias (images, vidéos)
+ - Service de vidéo par défaut (peertube, youtube ou vimeo) - attach-video-config[default_video_service]
+ - Adresse du serveur peertube par défaut - attach-video-config[default_peertube_instance]
+### Base de données
+ - Latitude par défaut des affichages cartographiques - baz_map_center_lat
+ - Longitude par défaut des affichages cartographiques - baz_map_center_lon
+ - Niveau de zoom par défaut des cartes (1:monde => 15:commune) - baz_map_zoom
+ - Hauteur par défaut en pixels des affichages cartographiques - baz_map_height
+ - Adresse mail de l'expéditeur des modifications des fiches bazar - BAZ_ADRESSE_MAIL_ADMIN
+ - Envoyer un mail aux admininistrateurs à chaque modification de fiche (true ou false) - BAZ_ENVOI_MAIL_ADMIN
+ - Temps (s) entre deux rafraîchissements du cache pour vérifier les ajouts et modifications dans les requêtes JSON - baz_external_service[cache_time_to_check_changes]
+ - Temps (s) entre deux rafraîchissements du cache pour vérifier les suppresions dans les requêtes JSON - baz_external_service[cache_time_to_check_deletion]
+ - Temps (s) entre deux rafraîchissements du cache pour formulaires nécessaires aux requêtes JSON - baz_external_service[cache_time_to_refresh_forms]
+ - Permettre la création de fiches même si le wiki est fermé en écriture (true ou false) - bazarIgnoreAcls
+### Sécurité
+ - Prévenir si l'on quitte la page sans sauvegarder (true ou false) - use_alerte
+ - Activer l'utilisation d'un captcha avant la sauvegarde (true ou false) - use_captcha
+ - Activer l'antispam hashcash du wiki (activé par défaut) - use_hashcash
+ - État du wiki (running ou vide = standard, hibernate = lecture seule) - wiki_status
+### Balises meta pour l'indexation web
+ - Mots clés pour le référencement (séparés par des virgules, pas plus de 20-30) - meta_keywords
+ - Description du site en une phrase, pour le référencement (Attention : ne pas mettre de "." (point)) - meta_description
+ - Empêcher les robots à indexer le wiki (Mettre 'noindex,nofollow,noarchive,noimageindex') - meta[robots]

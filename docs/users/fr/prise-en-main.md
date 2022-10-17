@@ -1,45 +1,37 @@
 Prise en main
 ============
 
-> **Pour décrouvrir les fonctionalités de base d'un wiki**
-> * Quelques trucs si l'informatique vous fait peur Pour moi, page inutile
->
-> **Ajouter et modifier des contenus**
->
-> * Éditer une page (premiers)
-> * Mettre en forme le texte (premiers)
-> * Créer une nouvelle page (premiers)
-> * Inclure une page dans une autre (premiers)
-> * Créer un lien (premiers)
-> * Joindre un fichier : image, son ... (premiers)
-> * Restaurer l'ancienne version d'une page (premiers)
->
-> **Agencer du contenu**
->
-> * Éditer et modifier un menu (premiers)
-> * Composition d'une page (premiers)
-> * Modifier le menu du haut (premiers)
-> * Modifier le bandeau (pageheader) (premiers)
+> Tout ce que vous devez savoir pour bien débuter avec YesWiki !
 
 Editer une page
 ---------------
 
-Si une page est ouverte à l'édition, vous trouverez un bouton en bas de page pour l'éditer
+Pour passer en mode édition, trois solutions :
+ - Utiliser le lien **éditer** en bas de page
+ - Double cliquer dans la page
+ - Ajouter /edit à la fin de l'adresse de la page
+
+!> Vous n'arrivez pas à éditer une page YesWiki, elle a certainement été fermée en écriture
 
 ### Syntaxe YesWiki
 
-!> TODO: juste un mot d'explication sur l'usage de la balise et le besoin de virer la balise quand on en a plus besoin
+YesWiki utilise des balises plus ou moins complexes pour les styles, les actions et autre astuces de mise en forme.
+Par exemple, un texte en **gras** s'affiche `**`**gras**`**`
+ - pour supprimer les balises, il faut les supprimer avant **ET** après l'élément impacté
+ - Pour des balises plus complexes comme `{{section bgcolor="var(--primary-color)" class="shape-rounded" pattern="border-solid" }}Texte encadré{{end elem="section"}}` (oui, je sais, ça fait peur au début) il faut bien supprimer tout ce qui est avant **ET** après _Texte encadré_.
+
+Deux solutions en cas de soucis :
+ - revenir sur une version précédente de la page
+ - supprimer tous les codes de la partie impactée et remettre les choses en place calmement
+
+> Exemple: si tout le texte de ma page est en gras ou en italique, c'est souvent une balise qui est ouverte et n'est pas fermée, par exemple : ```**texte en gras```
 
 ### Mise en forme
 
-La plupart des mises en forme standard (gras, encadré, saut de ligne...) sont accessible via les boutons de l'éditeur. Voici quelques mise en formes supplémentaires
-
-!> TODO: reprendre tous les exemples de l'aide de YesWiki ici (ReglesDeFormatage), et modifier cette page pour qqu'elle pointe vers cette nouvelle doc
-
-!> TODO: est ce que la partie composant buttons + mise en forme ne pourrait pas venir ici?
+La plupart des mises en forme standard (gras, encadré, titre...) sont accessible via les boutons de l'éditeur. Certaines mise en forme sont également accessibles dans le menu `Composants`.
+En voici quelqu'unes supplémentaires
 
 #### Listes
-
 ```yeswiki
  - Liste à puce niveau 1
  - Puce niveau 1
@@ -55,7 +47,6 @@ La plupart des mises en forme standard (gras, encadré, saut de ligne...) sont a
 > Remarque : en mode édition, il faut parfois sauter une ligne après une liste à puce pour garder la coloration syntaxique...
 
 #### Tableaux
-
 ```yeswiki preview
 [|
 |**Nom**  |**prénom** |**Couleurs préférées** |
@@ -65,14 +56,44 @@ La plupart des mises en forme standard (gras, encadré, saut de ligne...) sont a
 ```
 
 #### Écrire du code HTML
-
 Si vous déposez du HTML dans la page wiki, il faut l'entourer de `""` pour qu'il soit interprété
 
 ```yeswiki
 ""<b>Ceci est du HTML</b>""
 ```
+#### Créer une ancre: un lien qui envoie sur une partie de votre page
+```yeswiki
+""<a href="#ancre1">Lien pour aller vers le paragraphe cible""</a>
+
+...
+
+""<div id="ancre1"></div>""
+Paragraphe vers lequel on arrivera en cliquant sur le lien
+```
+
+#### Mettre du texte en couleur
+```yeswiki
+""<span style="color:#votrecodecouleur;">votre texte à colorer</span>""
+```
+De nombreux site vous aideront à trouver le code couleur, [comme celui-ci](https://rgbacolorpicker.com/hex-color-picker)
 
 
+#### Utiliser des icônes
+
+Il est possible de copier des Emoji depuis des sites sources puis de les coller dans votre wiki. [Par exemple sur ce site](http://getemoji.com)
+
+Les icones du site de [Font awesome](https://fontawesome.com/v5/search?o=r&m=free) sont également accessibles. Il vous suffit de mettre le code donné sur le site, par exemple
+
+```yeswiki
+""<i class="fas fa-yin-yang"></i>""
+```
+
+#### Barre de progression
+```yeswiki preview=120
+[10%]
+[50%]
+[85%]
+```
 
 Créer une page / insérer un lien
 -------------------------------
@@ -95,26 +116,32 @@ Dans YesWiki chaque modification d'une page est sauvegardée dans un **historiqu
 
 **Pour y accéder** il suffit de cliquer sur le lien en bas de page nommé : "Dernière édition : _jour_._mois_._année_"
 
-> Attention: cet accès est possible pour les personnes qui ont les droits en écriture sur la page concernée, c'est-à-dire tout le monde par défaut, mais les administrateurs du site peuvent faire un autre choix.
+!> Attention, l'historique est accesible uniquement aux personnes qui ont les droits en écriture sur la page concernée.
 
 
-Insérer un média (images/pdf/...)
+Insérer et gérer les médias (images, pdf...)
 ----------------------------------
 
-!> TODO Ne pas décrire tout ce qui est accessible avec l'interface.
-!> Décrire la gestion des différents formats
-!> Décrire comment faire pour utiliser une image d'une page dans une autre
+Lors de l'édition d'une page, il vous est facile de téléverser différents type de documents grâce au bouton "Fichier". Cela créera un bout de code qui ressemble à cela
 
+```
+{{attach file="mon_image.png" desc="Une jolie image" }}
+```
 
-En plus du texte, on peut vouloir ajouter des images, des documents à télécharger, voire des vidéos ou des fichiers audio. Avec YesWiki ceci est très facile ! Voici comment faire.
+> Pour les vidéos, il est préférable de les héberger sur un site spécifique puis de les insérer via le composant "Vidéo intégrée"
+### Réutiliser le fichier sur une autre page
 
-Dans la page en mode édition, cliquer sur le bouton "Fichier" permet de choisir un fichier qui se trouve sur votre ordinateur. (listes fichiers affichables)  (svg, png, gif, jpg, bmp...) (.doc, .pdf, .xls, .odt, .txt...) mp3 flv
-=> ce qui sera interprété et ce qui fera un lien de téléchargement
+Chaque fichier sera lié à la page dans laquelle il a été téléversé. Si vous copiez le code dans une autre page cela ne fonctionnera pas. Il faudra préfixer le nom du fichier par le nom de la page, par exemple :
 
-En fonction du type de fichier à insérer, YesWiki propose des interfaces différentes, mais le principe reste le même.
+```
+{{attach file="PagePrincipale/mon_image.png" desc="Une jolie image" }}
+```
 
-> Astuce: pour les fichiers vidéos, ou interactif type pad -> mettre lien vers une aure section dédiée
+Si le fichier n'est pas trouvé, un bouton de téléversement sera affiché à la place
 
+### Gérer les fichiers attachés à une page
+
+Ajoutez `/filemanager` à l'URL de votre page pour voir la liste des fichiers qui ont été téléversés sur celle-ci. Par exemple https://yeswiki.net/?AccueiL/filemanager
 
 Insérer des éléments d'un autre site (iframe)
 ---------------------------------------
@@ -161,15 +188,98 @@ Le paramètre `frameborder` permet de **gérer la bordure** noire du cadre (`1` 
 ```
 <iframe src="..." frameboder="0"></iframe>
 ```
-  
+
+Les Handlers : accéder à certains fonctionalités via l'URL
+-------------
+
+Un handler est une URL spéciale qui permet de modifier la façon d'afficher une page. On l'active en ajoutant à la fin de l'adresse URL, le signe **/** suivi du nom du handler. Exemple avec le handler `raw`: https://yeswiki.net/?AccueiL/raw
+
+> Certains handler permettent juste d'accéder à une fonctionalité à laquelle on peut accéder via des boutons de l'interface. C'est le cas pour `edit`, `revisions` ou `share`. Lorsque vous naviguez dans votre wiki, soyez attentif aux changement d'URL pour connaitre ces raccourcis
+
+* **/edit** : pour passer en mode Édition
+* **/revisions**  : pour voir les versions de l'historique
+* **/filemanager** : pour accéder à la liste des fichiers attachés à cette page
+* **/slide_show**  : pour transformer le texte en diaporama
+* **/diaporama**  : idem slide_show en un peu différent
+* **/mail**  : envoie la page en mailing
+* **/raw** : affiche le code wiki non formaté de la page
+* **/deletepage**  : si vous êtes propriétaire de la page, vous pouvez la supprimer
+* **/claim**  : si la page n'a pas de propriétaire, vous pouvez vous l'approprier
+* **/acls**  : si vous êtes propriétaire de la page, vous pouvez gérer les droits
+* **/share**  : pour afficher des possibilités de partage sur les réseaux sociaux, et pour générer un code embed (iframe) qui permettra d'afficher la page sur un site externe.
+* **&amp;debug** : permet d'afficher en bas de page toutes les actions effectuées au niveau informatique, permet de repérer les bugs, causes de plantage...
+* **/editiframe**  : permet d'ouvrir la page en mode édition mais en cachant les autres pages du squelette (utile quand une image ou un spam sur le bandeau empêche de voir le contenu de la page à modifier ou dans le cas d'un wiki intégré en iframe)
+
+
+
+Structure du wiki
+--------------------
+
+### La composition d'une page 
+
+#### Par défaut une page wiki contient :
+
+*   une **Page Titre** : c'est le nom du wiki
+*   une **Page Menu Haut** : on peut y ajouter des liens vers les pages du wiki (menu et sous-menu)
+*   une **Page Rapide Haut** : il s'agit des pages d'administration du wiki, la roue crantée en haut à droite
+*   une **Page Header** : c'est une partie utile pour écrire le titre donné au wiki, ajouter une description, un logo...
+*   une **Page Footer** : autrement dit un pied de page, où se trouvent diverses informations au sujet due wiki
+
+![image composition_page.jpg](images/composition_page.jpg)
+
+Pour modifier ces pages spéciales, allez dans la roue crantée puis "Gestion du site"
+
+### Zoom sur la PageMenuHaut
+
+La PageMenuHaut est organisée comme une liste de liens ou de boutons.
+
+* Les puces de premier niveau (un seul espace avant le tiret) seront toujours apparents dans le menu.
+* Les puces de deuxième niveau (deux espaces avant le tiret) permettent de créer des sous menus
+
+```yeswiki
+ - [[PageDemo Démo]]
+ - Test
+  - [[Pagetest1 Sous menu 1]]
+  - [[PageTest2 Sous menu 2]]
+ - {{button icon="fas fa-leaf" link="PageMargot" text="Margot" }}
+```
+
+### Visite de la roue crantée 
+
+La roue crantée (en haut à droite) donne accès à un certain nombre d'espaces dédiés à l'administration du wiki
+
+#### Gestion du site
+
+Cette page gestion du site est très importante. Elle donne accès à de nombreuses fonctionnalités d'administration :
+
+![image rubriques_gestiondusite.png](images/rubriques_gestiondusite.png)
+
+[Voir la page dédiée](admin.md)
+
+#### Tableau de bord
+
+Dans le tableau de bord, vous pouvez voir :
+
+* les derniers comptes utilisateurs créés
+* les dernières pages modifiées
+* la liste exhaustive des pages du wiki
+
+C'est le tableau de bord configuré par défaut mais vous pouvez le personnaliser.
+
+#### Base de données
+
+C'est ici que l'on configure Bazar : Bazar est une extension importante de YesWiki qui lui ajoute des fonctionnalités de création et de gestion de bases de données (formulaires).
+
+Il faut être identifié comme administrateur pour créer ou modifier un formulaire Bazar. [Voir la page dédiée](bazar.md)
+
 
 Les composants
 ---------------
 
-!> TODO: L'idée était de juste lister les composants disponibles pour qu'on puisse les trouver en cherchant dans le moteur de recherche de la doc. A voir si on garde ça ou si plutôt on réserve cette section a des descriptions de composants avancés (y'aurait quoi par exemple?)
+Les composants sont des éléments que l'on peut rajouter dans une page wiki. Ils sont accessible depuis le menu "Composants" dans l'éditeur de page.
+Utiliser les composants ajoutera un code (parfois compliqué) dans votre page. Mais rassurez vous, une interface vous permet de facilement créer et modifier simplement chacune des fonctionnalités de votre composant.
 
-Les composants sont des éléments que l'on peut rajouter dans une page wiki.
-Utiliser les composants ajoutera un code -parfois compliqué-  dans votre page. En cliquant sur ce code, un crayon apparaîtra dans la marge. En cliquant dessus, vous activerez une interface qui codera à votre place afin de modifier simplement chacune des fonctionnalités de votre composant.
+Voici une liste des composants disponibles :
 
 ### Boutons
 
@@ -233,7 +343,7 @@ Vous pourrez bien sûr afficher les données des formulaires que vous aurez fabr
 
 Ce composant est le pendant de l’action précédente, il permet d’afficher l’espace de saisie correspondant au formulaire qui vous intéresse.
 
-### Actions avancées 
+### Actions avancées
 
 De nombreuses autres actions sont disponibles, en voici la liste :
 
@@ -256,106 +366,3 @@ De nombreuses autres actions sont disponibles, en voici la liste :
 #### Lister les pages à créer
 #### Lister les pages orphelines
 #### Lister seulement les fiches bazar
-
-Structure du wiki
---------------------
-
-### La composition d'une page 
-
-#### Par défaut une page wiki contient :
-
-*   une **Page Titre** : c'est le nom du wiki
-*   une **Page Menu Haut** : on peut y ajouter des liens vers les pages du wiki (menu et sous-menu)
-*   une **Page Rapide Haut** : il s'agit des pages d'administration du wiki, la roue crantée en haut à droite
-*   une **Page Header** : c'est une partie utile pour écrire le titre donné au wiki, ajouter une description, un logo...
-*   une **Page Footer** : autrement dit un pied de page, où se trouvent diverses informations au sujet due wiki
-
-![image composition_page.jpg](images/composition_page.jpg)
-
-#### Il y a deux manières d'accéder à une page menu pour la modifier :
-
-##### Par la roue crantée 
-
-![image composition_roue.png](images/composition_roue.png)
-
-Dans la page Gestion du site, on retrouve les liens vers toutes les pages citées ci-dessus.
-
-##### Par l'url
-
-![image composition_url.png](images/composition_url.png)
-
-Pour les menus par défaut ces url sont :  
-
-*   https://www.urldusite.ext/PageTitre
-*   https://www.urldusite.ext/PageMenuHaut
-*   https://www.urldusite.ext/PageRapideHaut
-*   https://www.urldusite.ext/PageHeader
-*   https://www.urldusite.ext/PageFooter
-
-### Zoom sur le menu du haut
-
-Pour créer ou modifier un menu...
-
-#### ... il faut savoir créer des liens...
-
-Les titres de menu correspondent à des liens menant à des pages, qu'elles soient déjà créées ou non.  
-Ici la page "Démo" n'existe pas : il y a un petit crayon à côté de son nom dans la page (en bas) et dans le menu (en haut). On peut créer la page en cliquant sur son nom, dans la page ou dans le menu.
-
-#### ...et des listes à puces (idem !)
-
-Une page menu est organisée comme une liste de puces. Un niveau de menu correspond au retrait de la puce, soit un ou plusieurs espaces placés en début de ligne :  
-
-*   un seul espace avant le tiret créera un titre de premier niveau (toujours apparent dans le menu). Ici la page "Démo".
-*   deux espaces avant le tiret créera un titre de deuxième niveau (apparent après avoir cliqué sur le titre de premier niveau). Ici les pages Test1 et Test2.
-
-N'hésitez pas à vous inspirer du code du menu déjà en place. Un wiki récemment installé a quelques éléments de menu justement pour vous montrer comment ça marche ;-)  
-
-![image menu_haut.png](images/menu_haut.png)
-
-### Visite de la roue crantée 
-
-Cliquer sur la roue crantée en haut à droite me donne accès à un certain nombre d'espaces dédiés à l'administration du wiki :
-
-![image menu_rouecrantee.png](images/menu_rouecrantee.png)
-
-La roue crantée peut être personnalisée sur PageRapideHaut.
-
-#### Se connecter
-
-Ce bouton sert à s'identifier ou à se créer un compte ("s'inscrire") :
-
-![image Vignette_seconnecter.png](images/Vignette_seconnecter.png)
-
-#### Aide, démo, actu
-
-Vous avez là une intégration des pages d'aide du site yeswiki.net
-
-#### Présentation YesWiki
-
-Cette page vous décrit YesWiki et sa communauté.
-
-#### Gestion du site
-
-!> TODO ajouter lien vers section dans la page admin
-
-Cette page gestion du site est très importante. Elle donne accès à de nombreuses fonctionnalités d'administration :
-
-![image rubriques_gestiondusite.png](images/rubriques_gestiondusite.png)
-
-[Voir la page dédiée](admin.md)
-
-#### Tableau de bord
-
-Dans le tableau de bord, vous pouvez voir :
-
-* les derniers comptes utilisateurs créés
-* les dernières pages modifiées
-* la liste exhaustive des pages du wiki
-
-C'est le tableau de bord configuré par défaut mais vous pouvez le personnaliser.
-
-#### Base de données
-
-C'est ici que l'on configure Bazar : Bazar est une extension importante de YesWiki qui lui ajoute des fonctionnalités de création et de gestion de bases de données (formulaires).
-
-Il faut être identifié comme administrateur pour créer ou modifier un formulaire Bazar. [Voir la page dédiée](bazar.md)
