@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace YesWiki\Zfuture43;
 
 use Exception;
@@ -40,18 +41,20 @@ class UpdateHandler__ extends YesWikiHandler
         }
         $revision = $this->config->get('yeswiki_version');
         $release = $this->config->get('yeswiki_release');
-        list($major,$minor,$bugFix) = array_merge(explode('.',$release),[1 => "",2 => ""]);
+        list($major, $minor, $bugFix) = array_merge(explode('.', $release), [1 => "",2 => ""]);
 
         $output = "";
-        if ($revision == "doryphore" && 
+        if ($revision == "doryphore" &&
                 $major == 4 && (
                     empty($minor) || $minor < 3
                 )
-            ){
-
+        ) {
             // replace CalcField value by string
             $output .= $this->calcFieldToString();
         }
+
+        // check if SQL tables are well defined
+        $output .= $this->checkSQLTablesThenFixThem($this->dbService);
 
         // set output
         $this->output = str_replace(
@@ -61,7 +64,7 @@ class UpdateHandler__ extends YesWikiHandler
         );
         return null;
     }
-    
+
     private function calcFieldToString(): string
     {
         $output = "ℹ️ CalcField value to string... ";
@@ -132,5 +135,137 @@ class UpdateHandler__ extends YesWikiHandler
         $output .= '✅ Done !<br />';
 
         return $output;
+    }
+
+
+
+    /**
+     * @param DbService $dbService
+     * @return string $output
+     */
+    private function checkSQLTablesThenFixThem($dbService): string
+    {
+        $output = "ℹ️ Checking SQL table structure... ";
+        try {
+            foreach ([
+                ['pages','id','int(10) unsigned NOT NULL AUTO_INCREMENT'],
+                ['links','id','int(10) unsigned NOT NULL AUTO_INCREMENT'],
+                ['nature','bn_id_nature','int(10) UNSIGNED NOT NULL AUTO_INCREMENT'],
+                ['referrers','id','int(10) unsigned NOT NULL AUTO_INCREMENT'],
+                ['triples','id','int(10) unsigned NOT NULL AUTO_INCREMENT'],
+            ] as $data) {
+                $output .= $this->checkThenUpdateColumnAutoincrement($dbService, $data[0], $data[1], $data[2]);
+            }
+            foreach ([
+                ['pages','id',['id']],
+                ['links','id',['id']],
+                ['nature','bn_id_nature',['bn_id_nature']],
+                ['referrers','id',['id']],
+                ['triples','id',['id']],
+                ['users','name',['name']],
+                ['acls','page_tag',['page_tag','privilege']],
+                ['acls','privilege',['page_tag','privilege']],
+            ] as $data) {
+                $output .= $this->checkThenUpdateColumnPrimary($dbService, $data[0], $data[1], $data[2]);
+            }
+            $output .= "✅ All is right !<br/>";
+        } catch (\Throwable $th) {
+            if ($th->getCode() ===1) {
+                $output .= "{$th->getMessage()} <br/>";
+            } else {
+                $output .= "❌ Not checkcked because of error during tests : {$th->getMessage()}! <br/>";
+            }
+        }
+
+        return $output;
+    }
+
+    /**
+     * check if a column has auto_increment then try to update it
+     * @param $dbService
+     * @param string $tableName
+     * @param string $columnName
+     * @param string $SQL_columnDef
+     * @return string $output
+     * @throws \Exception
+     */
+    private function checkThenUpdateColumnAutoincrement($dbService, string $tableName, string $columnName, string $SQL_columnDef): string
+    {
+        $output = "";
+        $data = $this->getColumnInfo($dbService, $tableName, $columnName);
+        if (empty($data['Extra']) || (is_string($data['Extra']) && strstr($data['Extra'], 'auto_increment') === false)) {
+            $output .= "<br/>  Updating `$columnName` in `$tableName`... ";
+            $dbService->query("ALTER TABLE {$dbService->prefixTable($tableName)} MODIFY COLUMN `$columnName` $SQL_columnDef;");
+            $data = $this->getColumnInfo($dbService, $tableName, $columnName);
+            if (empty($data['Extra']) || (is_string($data['Extra']) && strstr($data['Extra'], 'auto_increment') === false)) {
+                throw new \Exception("❌ tables `$tableName`, column `$columnName` not updated !", 1);
+            }
+        }
+        return $output;
+    }
+
+    /**
+     * check if a column is primary then try to update it
+     * @param $dbService
+     * @param string $tableName
+     * @param string $columnName
+     * @param array $newKeys
+     * @return string $output
+     * @throws \Exception
+     */
+    private function checkThenUpdateColumnPrimary($dbService, string $tableName, string $columnName, array $newKeys): string
+    {
+        $output = "";
+        $data = $this->getColumnInfo($dbService, $tableName, $columnName);
+        if (empty($data['Key']) || $data['Key'] !== "PRI") {
+            $output .= "<br/>  Updating key for `$columnName` in `$tableName`... ";
+            $newKeysFormatted = implode(
+                ',',
+                array_map(
+                    function ($key) use ($dbService) {
+                        return "`{$dbService->escape($key)}`";
+                    },
+                    array_filter($newKeys)
+                )
+            );
+            if (!empty($newKeysFormatted)) {
+                $data = $this->getColumnInfo($dbService, $tableName, 'index');
+                if (!empty($data)) {
+                    $dbService->query("ALTER TABLE {$dbService->prefixTable($tableName)} DROP PRIMARY KEY;");
+                }
+                $dbService->query("ALTER TABLE {$dbService->prefixTable($tableName)} ADD PRIMARY KEY($newKeysFormatted);");
+            }
+            $data = $this->getColumnInfo($dbService, $tableName, $columnName);
+            if (empty($data['Key']) || $data['Key'] !== "PRI") {
+                throw new \Exception("❌ tables `$tableName`, column `$columnName` key not updated !", 1);
+            }
+        }
+        return $output;
+    }
+
+    /**
+     * get columnInfo from a table
+     * @param DbService $dbService
+     * @param string $tableName
+     * @param string $columnName
+     * @return array $data
+     * @throws \Exception
+     */
+    private function getColumnInfo($dbService, string $tableName, string $columnName): array
+    {
+        if ($columnName == 'index') {
+            $result = $dbService->query("SHOW INDEX FROM {$dbService->prefixTable($tableName)};");
+            if (@mysqli_num_rows($result) === 0) {
+                return [];
+            }
+        } else {
+            $result = $dbService->query("SHOW COLUMNS FROM {$dbService->prefixTable($tableName)} LIKE '$columnName';");
+            if (@mysqli_num_rows($result) === 0) {
+                throw new \Exception("❌ tables `$tableName` not verified because error while getting `$columnName` column !", 1);
+            }
+        }
+        $data = mysqli_fetch_assoc($result);
+        mysqli_free_result($result);
+        return $data;
     }
 }
