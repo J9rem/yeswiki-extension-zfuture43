@@ -1,0 +1,26 @@
+{# 
+This file is part of the YesWiki Extension zfuture43.
+
+Authors : see README.md file that was distributed with this source code.
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code. #}
+
+{% extends "@bazar/entries/index-dynamic.twig" %}
+
+{% set necessary_fields = ['bf_date_debut_evenement', 'bf_date_fin_evenement','url'] %}
+
+{% block assets %}
+  {{ include_css('styles/vendor/fullcalendar/main.min.css') }}
+  {{ include_css('tools/bazar/presentation/styles/calendar.css') }}
+
+  {{ include_javascript('javascripts/vendor/moment/moment-with-locales.min.js') }}
+  {{ include_javascript('javascripts/vendor/fullcalendar/main.min.js') }}
+  {{ include_javascript('javascripts/vendor/fullcalendar/locales-all.min.js') }}
+
+  {{ include_javascript('tools/zfuture43/javascripts/components/BazarCalendar.js', false, true) }}
+{% endblock %}
+
+{% block display_entries %}
+  <Bazar-Calendar-New :params="params" class="no-dblclick {{ params.class }}"></Bazar-Calendar-New>
+{% endblock %}
