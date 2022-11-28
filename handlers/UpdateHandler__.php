@@ -195,7 +195,7 @@ class UpdateHandler__ extends YesWikiHandler
         try {
             $data = $this->getColumnInfo($dbService, $tableName, $columnName);
         } catch (Exception $ex) {
-            if ($ex->getCode()== 1) {
+            if ($ex->getCode() != 1) {
                 throw $ex;
             }
             $data = [];
