@@ -192,7 +192,14 @@ class UpdateHandler__ extends YesWikiHandler
     private function checkThenUpdateColumnAutoincrement($dbService, string $tableName, string $columnName, string $SQL_columnDef): string
     {
         $output = "";
-        $data = $this->getColumnInfo($dbService, $tableName, $columnName);
+        try {
+            $data = $this->getColumnInfo($dbService, $tableName, $columnName);
+        } catch (Exception $ex) {
+            if ($ex->getCode()== 1) {
+                throw $ex;
+            }
+            $data = [];
+        }
         if (empty($data['Extra']) || (is_string($data['Extra']) && strstr($data['Extra'], 'auto_increment') === false)) {
             $output .= "<br/>  Updating `$columnName` in `$tableName`... ";
             if (empty($data)) {
