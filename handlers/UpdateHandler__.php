@@ -195,6 +195,13 @@ class UpdateHandler__ extends YesWikiHandler
         $data = $this->getColumnInfo($dbService, $tableName, $columnName);
         if (empty($data['Extra']) || (is_string($data['Extra']) && strstr($data['Extra'], 'auto_increment') === false)) {
             $output .= "<br/>  Updating `$columnName` in `$tableName`... ";
+            if (empty($data)) {
+                $dataIndex = $this->getColumnInfo($dbService, $tableName, 'index');
+                if (!empty($dataIndex)) {
+                    $dbService->query("ALTER TABLE {$dbService->prefixTable($tableName)} DROP PRIMARY KEY;");
+                }
+                $dbService->query("ALTER TABLE {$dbService->prefixTable($tableName)} ADD COLUMN `$columnName` $SQL_columnDef FIRST, ADD PRIMARY KEY(`$columnName`);");
+            }
             $dbService->query("ALTER TABLE {$dbService->prefixTable($tableName)} MODIFY COLUMN `$columnName` $SQL_columnDef;");
             $data = $this->getColumnInfo($dbService, $tableName, $columnName);
             if (empty($data['Extra']) || (is_string($data['Extra']) && strstr($data['Extra'], 'auto_increment') === false)) {
