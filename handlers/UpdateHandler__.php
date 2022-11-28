@@ -173,7 +173,7 @@ class UpdateHandler__ extends YesWikiHandler
             if ($th->getCode() ===1) {
                 $output .= "{$th->getMessage()} <br/>";
             } else {
-                $output .= "❌ Not checkcked because of error during tests : {$th->getMessage()}! <br/>";
+                $output .= "❌ Not checked because of error during tests : {$th->getMessage()} (file : '{$th->getFile()}' - line : ('{$th->getLine()}')! <br/>";
             }
         }
 
