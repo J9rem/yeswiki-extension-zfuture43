@@ -204,7 +204,9 @@ class UpdateHandler__ extends YesWikiHandler
             $output .= "<br/>  Updating `$columnName` in `$tableName`... ";
             if (empty($data)) {
                 $dataIndex = $this->getColumnInfo($dbService, $tableName, 'index');
-                if (!empty($dataIndex)) {
+                if (!empty(array_filter($dataIndex, function ($keyData) {
+                    return !empty($keyData['Key_name']) && $keyData['Key_name'] == 'PRIMARY';
+                }))) {
                     $dbService->query("ALTER TABLE {$dbService->prefixTable($tableName)} DROP PRIMARY KEY;");
                 }
                 $dbService->query("ALTER TABLE {$dbService->prefixTable($tableName)} ADD COLUMN `$columnName` $SQL_columnDef FIRST, ADD PRIMARY KEY(`$columnName`);");
@@ -244,7 +246,9 @@ class UpdateHandler__ extends YesWikiHandler
             );
             if (!empty($newKeysFormatted)) {
                 $data = $this->getColumnInfo($dbService, $tableName, 'index');
-                if (!empty($data)) {
+                if (!empty(array_filter($data, function ($keyData) {
+                    return !empty($keyData['Key_name']) && $keyData['Key_name'] == 'PRIMARY';
+                }))) {
                     $dbService->query("ALTER TABLE {$dbService->prefixTable($tableName)} DROP PRIMARY KEY;");
                 }
                 $dbService->query("ALTER TABLE {$dbService->prefixTable($tableName)} ADD PRIMARY KEY($newKeysFormatted);");
